@@ -1,0 +1,133 @@
+---
+const { baslik, son_kontrol, versiyon } = Astro.props;
+
+const tarihFormat = (d) => {
+  if (!d) return '';
+  const aylar = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',
+                 'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  const tarih = new Date(d);
+  return `${tarih.getDate()} ${aylar[tarih.getMonth()]} ${tarih.getFullYear()}`;
+};
+---
+
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{baslik} — Abul Rehber</title>
+    <style>
+      :root {
+        --bej:        #FAEEDA;
+        --coral:      #D85A30;
+        --koyu:       #993C1D;
+        --hover:      #FEF8F3;
+        --amber:      #633806;
+        --metin:      #2A2118;
+        --gri:        #6B6259;
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        background: var(--hover);
+        color: var(--metin);
+        margin: 0;
+        line-height: 1.7;
+      }
+      .ust {
+        background: var(--bej);
+        padding: 3rem 2rem 2.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+      }
+      .ust-icerik {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .ust .eyebrow {
+        color: var(--amber);
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .ust h1 {
+        font-size: 2.2rem;
+        margin: 0 0 0.75rem;
+        color: var(--metin);
+        font-weight: 700;
+      }
+      .ust .meta {
+        color: var(--gri);
+        font-size: 0.9rem;
+      }
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2.5rem 2rem 5rem;
+      }
+      main h2 {
+        color: var(--koyu);
+        margin-top: 2.5rem;
+        font-size: 1.4rem;
+      }
+      main h3 {
+        color: var(--metin);
+        margin-top: 1.75rem;
+        font-size: 1.1rem;
+      }
+      main a {
+        color: var(--coral);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+      main a:hover { color: var(--koyu); }
+      main table {
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        width: 100%;
+        max-width: 560px;
+      }
+      main table td {
+        padding: 0.5rem 1rem 0.5rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        vertical-align: top;
+      }
+      main table td:first-child {
+        color: var(--gri);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+      main code {
+        background: var(--bej);
+        padding: 0.1em 0.4em;
+        border-radius: 3px;
+        font-size: 0.92em;
+      }
+      .alt {
+        max-width: 720px;
+        margin: 3rem auto 0;
+        padding: 1.5rem 2rem;
+        color: var(--gri);
+        font-size: 0.85rem;
+        border-top: 1px solid rgba(0,0,0,0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="ust">
+      <div class="ust-icerik">
+        <div class="eyebrow">Abul Rehber</div>
+        <h1>{baslik}</h1>
+        <div class="meta">
+          Son kontrol: {tarihFormat(son_kontrol)} · {versiyon}
+        </div>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <div class="alt">
+      <a href="/">← Anasayfaya dön</a>
+    </div>
+  </body>
+</html>

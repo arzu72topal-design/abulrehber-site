@@ -1,0 +1,23 @@
+﻿---
+import { getCollection, render } from 'astro:content';
+import SayfaLayout from '../layouts/SayfaLayout.astro';
+
+export async function getStaticPaths() {
+  const sayfalar = await getCollection('sayfalar');
+  return sayfalar.map((sayfa) => ({
+    params: { slug: sayfa.id },
+    props: { sayfa },
+  }));
+}
+
+const { sayfa } = Astro.props;
+const { Content } = await render(sayfa);
+---
+
+<SayfaLayout
+  baslik={sayfa.data.baslik}
+  son_kontrol={sayfa.data.son_kontrol}
+  versiyon={sayfa.data.versiyon}
+>
+  <Content />
+</SayfaLayout>
