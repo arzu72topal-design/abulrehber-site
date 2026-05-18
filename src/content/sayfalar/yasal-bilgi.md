@@ -1,7 +1,7 @@
 ﻿---
 baslik: "Yasal bilgi"
 son_kontrol: 2026-05-17
-versiyon: "v1 final"
+versiyon: "v1.1 — canlıya çıkış güncellemesi"
 ---
 
 Abul Rehber bir avukatlık hizmeti değildir, bir bürokrasi haritasıdır. Bu fark önemli, çünkü size doğru biçimde yardımcı olabilmemiz için ikimizin de sınırlarımızı bilmesi gerekir. Bu sayfa neyi vaat etmediğimizi, sitenin verilerle ilişkisini ve sahipliğini netleştirir.
