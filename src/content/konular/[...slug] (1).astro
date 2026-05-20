@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import SayfaLayout from '../../layouts/SayfaLayout.astro';
+
+export async function getStaticPaths() {
+  const konular = await getCollection('konular');
+  return konular.map((konu) => ({
+    params: { slug: konu.id },
+    props: { konu },
+  }));
+}
+
+const { konu } = Astro.props;
+const { Content } = await render(konu);
+---
+
+<SayfaLayout
+  baslik={konu.data.baslik}
+  son_kontrol={konu.data.son_kontrol}
+  versiyon={konu.data.versiyon}
+>
+  <Content />
+</SayfaLayout>
