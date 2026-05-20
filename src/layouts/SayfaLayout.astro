@@ -15,6 +15,12 @@ const tarihFormat = (d) => {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{baslik} — Abul Rehber</title>
+
+    <!-- Google Fonts: Source Serif Pro (başlıklar) + Inter (gövde) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600;700;900&display=swap" />
+
     <style>
       :root {
         --bej:        #FAEEDA;
@@ -24,14 +30,18 @@ const tarihFormat = (d) => {
         --amber:      #633806;
         --metin:      #2A2118;
         --gri:        #6B6259;
+
+        --font-baslik: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        --font-govde:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       }
       * { box-sizing: border-box; }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        font-family: var(--font-govde);
         background: var(--hover);
         color: var(--metin);
         margin: 0;
         line-height: 1.7;
+        font-weight: 400;
       }
       .ust {
         background: var(--bej);
@@ -48,16 +58,21 @@ const tarihFormat = (d) => {
         letter-spacing: 0.05em;
         text-transform: uppercase;
         margin-bottom: 0.5rem;
+        font-family: var(--font-govde);
+        font-weight: 600;
       }
       .ust h1 {
+        font-family: var(--font-baslik);
         font-size: 2.2rem;
         margin: 0 0 0.75rem;
         color: var(--metin);
         font-weight: 700;
+        line-height: 1.2;
       }
       .ust .meta {
         color: var(--gri);
         font-size: 0.9rem;
+        font-family: var(--font-govde);
       }
       main {
         max-width: 720px;
@@ -65,14 +80,18 @@ const tarihFormat = (d) => {
         padding: 2.5rem 2rem 5rem;
       }
       main h2 {
+        font-family: var(--font-baslik);
         color: var(--koyu);
         margin-top: 2.5rem;
         font-size: 1.4rem;
+        font-weight: 700;
       }
       main h3 {
+        font-family: var(--font-govde);
         color: var(--metin);
         margin-top: 1.75rem;
         font-size: 1.1rem;
+        font-weight: 600;
       }
       main a {
         color: var(--coral);
