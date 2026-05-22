@@ -15,23 +15,35 @@ const kanalKarti = z.object({
 });
 
 // Bir kanal grubu (01 Resmi yol, 02 Profesyonel, 03 STK)
+// kartlar artık optional — "ağ dar" durumlarda sadece intro narrative ile çalışır
 const kanalGrubu = z.object({
   numara: z.string(),
   baslik: z.string(),
   alt_baslik: z.string().optional(),
   intro: z.string().optional(),
-  kartlar: z.array(kanalKarti),
+  kartlar: z.array(kanalKarti).optional(),
+});
+
+// Tek bir bilgi notu (ülke bloğu içinde birden fazla olabilir)
+const bilgiNotu = z.object({
+  baslik: z.string(),
+  metin: z.string(),
 });
 
 // Bir ülke bloğu (TR, DE, vb.)
+// gruplar artık optional — Phase 2 iskelet ülkeleri için sadece intro ile çalışır
+// bilgi_notlari yeni array alanı; eski tek-alan formu (bilgi_notu_baslik/metin) geri uyumluluk için korunur
 const ulkeBlogu = z.object({
   kod: z.string(),
   bayrak: z.string(),
   ad: z.string(),
   intro: z.string(),
+  // Eski format (pilot calisma-emeklilik.md için geri uyumlu)
   bilgi_notu_baslik: z.string().optional(),
   bilgi_notu_metin: z.string().optional(),
-  gruplar: z.array(kanalGrubu),
+  // Yeni format — birden fazla bilgi notu desteği
+  bilgi_notlari: z.array(bilgiNotu).optional(),
+  gruplar: z.array(kanalGrubu).optional(),
 });
 
 // İlgili konu kartı
