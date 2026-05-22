@@ -1,9 +1,9 @@
 ---
 baslik: "Çalışma ve emeklilik"
 konu_no: 7
-son_kontrol: 2026-05-17
-bir_sonraki_kontrol: 2026-08-17
-versiyon: "v1"
+son_kontrol: 2026-05-22
+bir_sonraki_kontrol: 2026-08-22
+versiyon: "v1.1"
 eyebrow: "KONU 07"
 lead: "İki ülkede çalışmış, primlerinizi her ikisinde de yatırmış, emeklilik yaşı geldiğinde 'Türk emekli aylığı mı, Alman emekli aylığı mı, ikisi birden mi' diye soran kişiler için. Çalışma izni, sosyal güvenlik primlerinin birleştirilmesi, yurt dışı borçlanma, iş kazası, işsizlik — hangi kuruma nasıl başvurabileceğinizi gösteriyoruz."
 secici_etiket: "Hangi ülkede çalışma veya emeklilik"
@@ -138,6 +138,41 @@ ulkeler:
             vurgu: "Caritas, AWO, Diakonie, Paritätischer, DRK"
             aciklama: "Almanya'da yerleşmiş yetişkin göçmenler için ücretsiz danışmanlık; iş bulma süreci, sosyal güvenlik bilgi akışı, DRV ile ilk temas hazırlığı, OKK 1/80 kapsamında haklarının açıklanması. Doğrudan dava takibi yapmaz; uzman avukata sevk eder. Türkçe konuşan danışman çoğu büyük şehirde."
 
+  - kod: "AT"
+    bayrak: "🇦🇹"
+    ad: "Avusturya"
+    intro: "Emeklilik karar makamı: PVA (Pensionsversicherungsanstalt). İş hukuku ana çerçevesi ABGB + Arbeitsverfassungsgesetz, iş mahkemesi Arbeits- und Sozialgericht. Türkiye-Avusturya Sosyal Güvenlik Sözleşmesi (1999 yenilenmiş versiyonu) çerçevesinde SGK ile PVA arasında hizmet birleştirme ve aylık koordinasyonu işler — Almanya modeline benzer. Diaspora için pratik not: Avusturya emekli aylığı + Türk emekli aylığı paralel alımı mümkün; sözleşme uygulaması Almanya kadar yerleşik."
+
+  - kod: "NL"
+    bayrak: "🇳🇱"
+    ad: "Hollanda"
+    intro: "Emeklilik üç ayaklıdır: AOW (Algemene Ouderdomswet — devlet aylığı, SVB tarafından yönetilir), iş yeri emekliliği (zorunlu Pensioenfonds), bireysel emeklilik. AOW miktarı Hollanda'da geçirilen sigortalı yıl sayısıyla orantılıdır — her yıl ~%2 hak doğar, 50 yılda %100. İş hukuku için UWV (işsizlik) ve Kantonrechter (iş mahkemesi). Türkiye-Hollanda Sosyal Güvenlik Sözleşmesi (1966+güncellemeler) hizmet birleştirme imkân tanır. Diaspora için kritik nokta: AOW kısa Hollanda süresinde düşük çıkar — gönüllü AOW prim ödemesi (yurt dışından) sınırlı koşullarla mümkün."
+
+  - kod: "FI"
+    bayrak: "🇫🇮"
+    ad: "Finlandiya"
+    intro: "Emeklilik iki ayaklıdır: Kansaneläke (devlet asgari aylığı, Kela tarafından) + Työeläke (iş yeri emekliliği, Keva/özel emeklilik şirketleri). İş hukuku Työsopimuslaki çerçevesinde, iş mahkemesi Työtuomioistuin. Türkiye-Finlandiya arasında ikili sosyal güvenlik sözleşmesi yoktur; AB üyesi olduğu için AB koordinasyon tüzüğü 883/2004 üçüncü ülke vatandaşları için sınırlı uygulanır. Diaspora için pratik not: Finlandiya'da çalışan Türk vatandaşı için Türk SGK ile birleştirme dolaylı yollarla (Almanya gibi sözleşmeli ülke köprüsü) işleyebilir, doğrudan koordinasyon yoktur."
+
+  - kod: "FR"
+    bayrak: "🇫🇷"
+    ad: "Fransa"
+    intro: "Emeklilik sistemi karmaşık ve mesleğe göre değişir: ana yapı CNAV (Caisse nationale d'assurance vieillesse — özel sektör), ARRCO/AGIRC (tamamlayıcı emeklilik), kamu sektörü için ayrı kasalar. İş hukuku Code du travail, iş mahkemesi Conseil de prud'hommes (işçi-işveren temsilcilerinden oluşur — Avrupa'da benzersiz yapı). Türkiye-Fransa Sosyal Güvenlik Sözleşmesi (1972) hizmet birleştirme ve aylık koordinasyonu sağlar. Diaspora için pratik not: Fransız emeklilik sistemi paralı çoklu kasa yapısı nedeniyle dosya birleştirmede zorlu; CARSAT bölgesel ofisleri köprü görevi görür."
+
+  - kod: "GR"
+    bayrak: "🇬🇷"
+    ad: "Yunanistan"
+    intro: "Emeklilik karar makamı EFKA (Elektroniki Ethniki Forologiki Arxhi tarafından birleştirilen sosyal güvenlik kurumu — 2017 reformuyla onlarca eski sandık birleştirildi). İş hukuku Yunanistan İş Yasası çerçevesinde, iş mahkemesi Eirinodikeio / Monomeles Protodikeio. Türkiye-Yunanistan Sosyal Güvenlik Sözleşmesi (mevcut, uzun yıllar uygulanıyor) hizmet birleştirme imkân tanır. Diaspora için yapısal özellik: Batı Trakya azınlığı için Türk emeklilik ve sosyal güvenlik hakları Lozan çerçevesi dışında, normal sözleşme rejimi altında işler."
+
+  - kod: "PT"
+    bayrak: "🇵🇹"
+    ad: "Portekiz"
+    intro: "Emeklilik karar makamı Segurança Social (sosyal güvenlik genel müdürlüğü). İş hukuku Código do Trabalho, iş mahkemesi Tribunal do Trabalho. Türkiye-Portekiz arasında ikili sosyal güvenlik sözleşmesi yoktur; AB üyesi olduğu için AB koordinasyon tüzüğü dolaylı uygulanır. Diaspora için pratik not: Portekiz'de çalışan Türk vatandaşları için emeklilik hizmet birleştirmesi doğrudan kanal yerine üçüncü ülke köprüsü (Almanya, Avusturya gibi sözleşmeli ülke geçmişi) üzerinden değerlendirilebilir."
+
+  - kod: "ES"
+    bayrak: "🇪🇸"
+    ad: "İspanya"
+    intro: "Emeklilik karar makamı INSS (Instituto Nacional de la Seguridad Social). İş hukuku Estatuto de los Trabajadores, iş mahkemesi Juzgado de lo Social. Türkiye-İspanya arasında ikili sosyal güvenlik sözleşmesi yoktur; 1977 Avrupa Sosyal Güvenlik Sözleşmesi sınırlı kapsamla uygulanır. Diaspora için pratik not: İspanya emekli aylığı için Türk hizmet birleştirmesi doğrudan kanal yerine sözleşmeli ülke köprüsü üzerinden değerlendirilir; ayrıca İspanya'daki Türk diaspora yoğunluğu emeklilik konutu odaklı (Akdeniz kıyıları) — aktif çalışma profili dardır."
+
 ilgili_konular:
   - ikon: "id-card"
     baslik: "Oturma ve vize"
@@ -162,5 +197,5 @@ ilgili_konular:
 
 birincil_kaynaklar: "mevzuat.gov.tr — 5510 SK, 3201 SK, 6735 SK; gesetze-im-internet.de — SGB III, V, VI, VII, KSchG, ArbGG; Türkiye-Almanya Sosyal Güvenlik Sözleşmesi (30.04.1964 + 02.11.1984 tadil + 1987 Nihai Protokol); sgk.gov.tr; deutsche-rentenversicherung.de"
 
-son_not: "Bu sayfa rehber niteliğindedir. Yurt dışı borçlanma (3201 SK) kararı emekli olmadan önce verilmelidir — borçlanma bedeli ve aylığa katkı dengesi her dosyada farklıdır. Emekli olmadan önce SGK ve DRV'den ayrı ayrı hizmet dökümü (Versicherungsverlauf) alıp kontrol edin. Kişisel hukuki kararlar için ilgili kuruma ve hukukçuya başvurun."
+son_not: "Bu sayfa rehber niteliğindedir. Yurt dışı borçlanma (3201 SK) kararı emekli olmadan önce verilmelidir — borçlanma bedeli ve aylığa katkı dengesi her dosyada farklıdır. Emekli olmadan önce SGK ve DRV'den ayrı ayrı hizmet dökümü (Versicherungsverlauf) alıp kontrol edin. 7 ülke iskeleti yapısal not düzeyinde tutulmuştur; tam içerik Phase 2'de eklenecektir. Kişisel hukuki kararlar için ilgili kuruma ve hukukçuya başvurun."
 ---
