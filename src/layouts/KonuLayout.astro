@@ -62,7 +62,19 @@ const data = konu.data;
       <h2 class="ulke-baslik">{u.bayrak} {u.ad}</h2>
       <p class="ulke-intro">{u.intro}</p>
 
-      {u.bilgi_notu_baslik && (
+      {/* Yeni format: bilgi_notlari array (birden fazla bilgi notu) */}
+      {u.bilgi_notlari && u.bilgi_notlari.map((bn) => (
+        <aside class="bilgi-notu">
+          <div class="bn-baslik">
+            <Icon name="lucide:info" width="18" height="18" />
+            <span>{bn.baslik}</span>
+          </div>
+          <div class="bn-metin">{bn.metin}</div>
+        </aside>
+      ))}
+
+      {/* Eski format (geri uyumluluk): tek bilgi notu — sadece bilgi_notlari yoksa render */}
+      {!u.bilgi_notlari && u.bilgi_notu_baslik && (
         <aside class="bilgi-notu">
           <div class="bn-baslik">
             <Icon name="lucide:info" width="18" height="18" />
@@ -72,34 +84,44 @@ const data = konu.data;
         </aside>
       )}
 
-      {u.gruplar && u.gruplar.map((g) => (
-        <div class="grup">
-          <div class="grup-baslik-wrap">
-            <span class="grup-numara">{g.numara}</span>
-            <h3 class="grup-baslik">{g.baslik}</h3>
+      {/* Gruplar varsa render; yoksa iskelet notu */}
+      {u.gruplar && u.gruplar.length > 0 ? (
+        u.gruplar.map((g) => (
+          <div class="grup">
+            <div class="grup-baslik-wrap">
+              <span class="grup-numara">{g.numara}</span>
+              <h3 class="grup-baslik">{g.baslik}</h3>
+            </div>
+            {g.alt_baslik && <div class="grup-alt">{g.alt_baslik}</div>}
+            {g.intro && <p class="grup-intro">{g.intro}</p>}
+            {g.kartlar && g.kartlar.length > 0 && (
+              <div class="kart-listesi">
+                {g.kartlar.map((k) => (
+                  <a href={k.link || '#'} class="kart">
+                    <div class="kart-ikon">
+                      <Icon name={`lucide:${k.ikon}`} width="28" height="28" />
+                    </div>
+                    <div class="kart-body">
+                      <div class="kart-ust">
+                        <div class="kart-baslik">{k.baslik}</div>
+                        <span class={`kart-tip tip-${k.tip.toLowerCase()}`}>{k.tip}</span>
+                      </div>
+                      <div class="kart-vurgu">{k.vurgu}</div>
+                      <p class="kart-aciklama">{k.aciklama}</p>
+                      {k.not && <div class="kart-not">{k.not}</div>}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
-          {g.alt_baslik && <div class="grup-alt">{g.alt_baslik}</div>}
-          {g.intro && <p class="grup-intro">{g.intro}</p>}
-          <div class="kart-listesi">
-            {g.kartlar.map((k) => (
-              <a href={k.link || '#'} class="kart">
-                <div class="kart-ikon">
-                  <Icon name={`lucide:${k.ikon}`} width="28" height="28" />
-                </div>
-                <div class="kart-body">
-                  <div class="kart-ust">
-                    <div class="kart-baslik">{k.baslik}</div>
-                    <span class={`kart-tip tip-${k.tip.toLowerCase()}`}>{k.tip}</span>
-                  </div>
-                  <div class="kart-vurgu">{k.vurgu}</div>
-                  <p class="kart-aciklama">{k.aciklama}</p>
-                  {k.not && <div class="kart-not">{k.not}</div>}
-                </div>
-              </a>
-            ))}
-          </div>
+        ))
+      ) : (
+        <div class="iskelet-notu">
+          <Icon name="lucide:info" width="16" height="16" />
+          <span>Tam içerik Phase 2'de eklenecek. Yukarıdaki giriş, ülkenin temel yapısal özelliklerini özetler.</span>
         </div>
-      ))}
+      )}
     </section>
   ))}
 
@@ -294,6 +316,26 @@ const data = konu.data;
     gap: 8px;
   }
   .bn-metin { font-size: 15px; color: var(--metin); }
+
+  /* ISKELET NOTU (Phase 2 placeholder) */
+  .iskelet-notu {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--bej-hover);
+    border: 1px dashed var(--cizgi);
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--metin-soluk);
+    line-height: 1.55;
+  }
+  .iskelet-notu [data-icon] {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--metin-soluk);
+  }
 
   /* GRUP */
   .grup { margin-top: 40px; }
