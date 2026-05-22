@@ -1,6 +1,6 @@
 ---
-import { getCollection, render } from 'astro:content';
-import SayfaLayout from '../../layouts/SayfaLayout.astro';
+import { getCollection } from 'astro:content';
+import KonuLayout from '../../layouts/KonuLayout.astro';
 
 export async function getStaticPaths() {
   const konular = await getCollection('konular');
@@ -11,13 +11,6 @@ export async function getStaticPaths() {
 }
 
 const { konu } = Astro.props;
-const { Content } = await render(konu);
 ---
 
-<SayfaLayout
-  baslik={konu.data.baslik}
-  son_kontrol={konu.data.son_kontrol}
-  versiyon={konu.data.versiyon}
->
-  <Content />
-</SayfaLayout>
+<KonuLayout konu={konu} />
