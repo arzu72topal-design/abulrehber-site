@@ -64,7 +64,10 @@ const data = konu.data;
 
       {u.bilgi_notu_baslik && (
         <aside class="bilgi-notu">
-          <div class="bn-baslik">ℹ {u.bilgi_notu_baslik}</div>
+          <div class="bn-baslik">
+            <Icon name="lucide:info" width="18" height="18" />
+            <span>{u.bilgi_notu_baslik}</span>
+          </div>
           <div class="bn-metin">{u.bilgi_notu_metin}</div>
         </aside>
       )}
@@ -286,6 +289,9 @@ const data = konu.data;
     color: var(--coral-koyu);
     margin-bottom: 8px;
     font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .bn-metin { font-size: 15px; color: var(--metin); }
 
