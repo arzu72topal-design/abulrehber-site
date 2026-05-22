@@ -1,7 +1,49 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Kurum kartı koleksiyonu
+// Tek bir kanal kartı şeması
+const kanalKarti = z.object({
+  ikon: z.string(),
+  baslik: z.string(),
+  tip: z.string(),
+  ulke_kodu: z.string().optional(),
+  paralel: z.boolean().optional(),
+  vurgu: z.string(),
+  aciklama: z.string(),
+  link: z.string().optional(),
+  not: z.string().optional(),
+});
+
+// Bir kanal grubu (01 Resmi yol, 02 Profesyonel, 03 STK)
+const kanalGrubu = z.object({
+  numara: z.string(),
+  baslik: z.string(),
+  alt_baslik: z.string().optional(),
+  intro: z.string().optional(),
+  kartlar: z.array(kanalKarti),
+});
+
+// Bir ülke bloğu (TR, DE, vb.)
+const ulkeBlogu = z.object({
+  kod: z.string(),
+  bayrak: z.string(),
+  ad: z.string(),
+  intro: z.string(),
+  bilgi_notu_baslik: z.string().optional(),
+  bilgi_notu_metin: z.string().optional(),
+  gruplar: z.array(kanalGrubu),
+});
+
+// İlgili konu kartı
+const ilgiliKonu = z.object({
+  ikon: z.string(),
+  baslik: z.string(),
+  vurgu: z.string(),
+  aciklama: z.string(),
+  link: z.string(),
+});
+
+// Kurum kartı koleksiyonu (mevcut)
 const kurumlar = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/kurumlar' }),
   schema: z.object({
@@ -16,7 +58,7 @@ const kurumlar = defineCollection({
   }),
 });
 
-// Konu sayfası koleksiyonu
+// Konu sayfası koleksiyonu — genişletilmiş schema
 const konular = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/konular' }),
   schema: z.object({
@@ -26,6 +68,15 @@ const konular = defineCollection({
     bir_sonraki_kontrol: z.date(),
     versiyon: z.string(),
     acil_uyari: z.string().optional(),
+    // Yeni alanlar — A3 formatı için, hepsi optional
+    eyebrow: z.string().optional(),
+    lead: z.string().optional(),
+    secici_etiket: z.string().optional(),
+    secici_yardim: z.string().optional(),
+    ulkeler: z.array(ulkeBlogu).optional(),
+    ilgili_konular: z.array(ilgiliKonu).optional(),
+    birincil_kaynaklar: z.string().optional(),
+    son_not: z.string().optional(),
   }),
 });
 
@@ -40,7 +91,7 @@ const toolbox = defineCollection({
   }),
 });
 
-// Statik sayfalar koleksiyonu
+// Statik sayfalar
 const sayfalar = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/sayfalar' }),
   schema: z.object({
