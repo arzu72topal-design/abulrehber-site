@@ -1,0 +1,461 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { konu } = Astro.props;
+const data = konu.data;
+---
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{data.baslik} — Abul Rehber</title>
+  <meta name="description" content={data.lead || data.baslik} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-inner">
+    <a href="/" class="logo">Abul Rehber</a>
+    <div class="nav-links">
+      <a href="/#konular">Konular</a>
+      <a href="/#ulkeler">Ülkeler</a>
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/yasal-bilgi">Yasal bilgi</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    {data.eyebrow && <div class="eyebrow">{data.eyebrow}</div>}
+    <h1>{data.baslik}</h1>
+    {data.lead && <p class="lead">{data.lead}</p>}
+  </div>
+</header>
+
+<!-- ULKE SECICI (sticky) -->
+{data.ulkeler && data.ulkeler.length > 0 && (
+  <div class="secici-wrap">
+    <div class="container secici">
+      {data.secici_etiket && <span class="secici-etiket">{data.secici_etiket}</span>}
+      <div class="pills">
+        {data.ulkeler.map((u) => (
+          <a href={`#${u.kod}`} class="pill">{u.bayrak} {u.ad}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+<!-- ULKE BLOKLARI -->
+<main class="container">
+  {data.ulkeler && data.ulkeler.map((u) => (
+    <section id={u.kod} class="ulke-blok">
+      <h2 class="ulke-baslik">{u.bayrak} {u.ad}</h2>
+      <p class="ulke-intro">{u.intro}</p>
+
+      {u.bilgi_notu_baslik && (
+        <aside class="bilgi-notu">
+          <div class="bn-baslik">ℹ {u.bilgi_notu_baslik}</div>
+          <div class="bn-metin">{u.bilgi_notu_metin}</div>
+        </aside>
+      )}
+
+      {u.gruplar && u.gruplar.map((g) => (
+        <div class="grup">
+          <div class="grup-baslik-wrap">
+            <span class="grup-numara">{g.numara}</span>
+            <h3 class="grup-baslik">{g.baslik}</h3>
+          </div>
+          {g.alt_baslik && <div class="grup-alt">{g.alt_baslik}</div>}
+          {g.intro && <p class="grup-intro">{g.intro}</p>}
+          <div class="kart-listesi">
+            {g.kartlar.map((k) => (
+              <a href={k.link || '#'} class="kart">
+                <div class="kart-ikon">
+                  <Icon name={`lucide:${k.ikon}`} width="28" height="28" />
+                </div>
+                <div class="kart-body">
+                  <div class="kart-ust">
+                    <div class="kart-baslik">{k.baslik}</div>
+                    <span class={`kart-tip tip-${k.tip.toLowerCase()}`}>{k.tip}</span>
+                  </div>
+                  <div class="kart-vurgu">{k.vurgu}</div>
+                  <p class="kart-aciklama">{k.aciklama}</p>
+                  {k.not && <div class="kart-not">{k.not}</div>}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  ))}
+
+  <!-- ILGILI KONULAR -->
+  {data.ilgili_konular && data.ilgili_konular.length > 0 && (
+    <section class="ilgili">
+      <h2>İlgili konular</h2>
+      <div class="ilgili-grid">
+        {data.ilgili_konular.map((i) => (
+          <a href={i.link} class="ilgili-kart">
+            <div class="ilgili-ikon">
+              <Icon name={`lucide:${i.ikon}`} width="24" height="24" />
+            </div>
+            <div class="ilgili-baslik">{i.baslik}</div>
+            <div class="ilgili-vurgu">{i.vurgu}</div>
+            <p class="ilgili-aciklama">{i.aciklama}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- META FOOTER -->
+  <section class="meta">
+    <div class="meta-satir"><strong>Son kontrol:</strong> {data.son_kontrol.toLocaleDateString('tr-TR')}</div>
+    <div class="meta-satir"><strong>Bir sonraki kontrol:</strong> {data.bir_sonraki_kontrol.toLocaleDateString('tr-TR')}</div>
+    <div class="meta-satir"><strong>Sayfa versiyonu:</strong> {data.versiyon}</div>
+    {data.birincil_kaynaklar && <div class="meta-satir"><strong>Birincil kaynaklar:</strong> {data.birincil_kaynaklar}</div>}
+    {data.son_not && <p class="son-not">{data.son_not}</p>}
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Abul Rehber — Yurt dışı hukuki ve bürokratik rehber. Bu sayfa rehber niteliğindedir.</p>
+    <p><a href="/yasal-bilgi">Yasal bilgi</a></p>
+  </div>
+</footer>
+
+<style>
+  :root {
+    --bej: #FAEEDA;
+    --bej-hover: #FEF8F3;
+    --coral: #D85A30;
+    --coral-koyu: #993C1D;
+    --amber-koyu: #633806;
+    --metin: #2A1810;
+    --metin-soluk: #6B5147;
+    --cizgi: #E8DCC8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bej);
+    color: var(--metin);
+    line-height: 1.6;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* TOP NAV */
+  .topnav {
+    background: var(--bej);
+    border-bottom: 1px solid var(--cizgi);
+    padding: 16px 0;
+  }
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .logo {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--coral-koyu);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: var(--metin);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .nav-links a:hover { color: var(--coral); }
+
+  /* HERO */
+  .hero { padding: 64px 0 48px; }
+  .eyebrow {
+    color: var(--amber-koyu);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--metin);
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .lead {
+    font-size: 19px;
+    color: var(--metin-soluk);
+    max-width: 720px;
+    line-height: 1.65;
+  }
+
+  /* ULKE SECICI */
+  .secici-wrap {
+    position: sticky;
+    top: 0;
+    background: var(--bej);
+    border-bottom: 1px solid var(--cizgi);
+    z-index: 50;
+    padding: 12px 0;
+  }
+  .secici {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .secici-etiket {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--metin-soluk);
+    margin-right: 8px;
+  }
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    background: var(--bej-hover);
+    border: 1px solid var(--cizgi);
+    color: var(--metin);
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .pill:hover {
+    background: var(--coral);
+    color: white;
+    border-color: var(--coral);
+  }
+
+  /* ULKE BLOK */
+  .ulke-blok { padding: 56px 0; border-bottom: 1px solid var(--cizgi); }
+  .ulke-baslik {
+    font-family: 'Source Serif 4', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .ulke-intro {
+    font-size: 17px;
+    color: var(--metin-soluk);
+    margin-bottom: 24px;
+  }
+
+  /* BILGI NOTU */
+  .bilgi-notu {
+    background: var(--bej-hover);
+    border-left: 3px solid var(--coral);
+    padding: 20px 24px;
+    margin: 24px 0 40px;
+    border-radius: 6px;
+  }
+  .bn-baslik {
+    font-weight: 700;
+    color: var(--coral-koyu);
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+  .bn-metin { font-size: 15px; color: var(--metin); }
+
+  /* GRUP */
+  .grup { margin-top: 40px; }
+  .grup-baslik-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .grup-numara {
+    color: var(--coral);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .grup-baslik {
+    font-family: 'Source Serif 4', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .grup-alt {
+    color: var(--metin-soluk);
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .grup-intro {
+    font-size: 15px;
+    color: var(--metin-soluk);
+    margin-bottom: 16px;
+  }
+
+  /* KART */
+  .kart-listesi {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .kart {
+    display: flex;
+    gap: 16px;
+    background: white;
+    border: 1px solid var(--cizgi);
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--metin);
+    transition: all 0.15s;
+  }
+  .kart:hover {
+    border-color: var(--coral);
+    background: var(--bej-hover);
+  }
+  .kart-ikon {
+    flex-shrink: 0;
+    color: var(--coral);
+    display: flex;
+    align-items: flex-start;
+    padding-top: 2px;
+  }
+  .kart-body { flex: 1; min-width: 0; }
+  .kart-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .kart-baslik {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .kart-tip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: var(--cizgi);
+    color: var(--metin);
+  }
+  .tip-resmi { background: #E8DCC8; color: var(--amber-koyu); }
+  .tip-profesyonel { background: #D8E8DC; color: #2D5A3D; }
+  .tip-stk { background: #DCE0E8; color: #2D3D5A; }
+  .tip-ücretsiz { background: #F0DCDC; color: #6A2D2D; }
+  .tip-sektörel { background: #EADCE8; color: #5A2D5A; }
+  .kart-vurgu {
+    font-size: 14px;
+    color: var(--coral-koyu);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .kart-aciklama {
+    font-size: 14px;
+    color: var(--metin-soluk);
+    line-height: 1.55;
+  }
+  .kart-not {
+    font-size: 12px;
+    color: var(--metin-soluk);
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* ILGILI */
+  .ilgili { padding: 56px 0; border-top: 1px solid var(--cizgi); }
+  .ilgili h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  .ilgili-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .ilgili-kart {
+    background: white;
+    border: 1px solid var(--cizgi);
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--metin);
+    transition: all 0.15s;
+  }
+  .ilgili-kart:hover { border-color: var(--coral); background: var(--bej-hover); }
+  .ilgili-ikon { color: var(--coral); margin-bottom: 10px; }
+  .ilgili-baslik { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .ilgili-vurgu { font-size: 13px; color: var(--coral-koyu); margin-bottom: 6px; }
+  .ilgili-aciklama { font-size: 13px; color: var(--metin-soluk); }
+
+  /* META */
+  .meta {
+    padding: 32px 0;
+    border-top: 1px solid var(--cizgi);
+    font-size: 14px;
+    color: var(--metin-soluk);
+  }
+  .meta-satir { margin-bottom: 6px; }
+  .meta-satir strong { color: var(--metin); }
+  .son-not {
+    font-style: italic;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--coral-koyu);
+    color: var(--bej);
+    padding: 32px 0;
+    margin-top: 56px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .site-footer a { color: var(--bej); }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 36px; }
+    .lead { font-size: 17px; }
+    .ulke-baslik { font-size: 26px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 14px; }
+  }
+</style>
+
+</body>
+</html>
