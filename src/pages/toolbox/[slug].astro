@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import ToolboxLayout from '../../layouts/ToolboxLayout.astro';
+
+export async function getStaticPaths() {
+  const sayfalar = await getCollection('toolbox');
+  return sayfalar.map((sayfa) => ({
+    params: { slug: sayfa.id },
+    props: { sayfa },
+  }));
+}
+
+const { sayfa } = Astro.props;
+---
+
+<ToolboxLayout sayfa={sayfa} />
