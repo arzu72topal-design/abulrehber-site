@@ -11,16 +11,6 @@ function vurguClass(vurgu) {
   if (vurgu === 'yatay') return 'kart-yatay';
   return 'kart-birincil';
 }
-
-// Toolbox eyebrow — toolboxAtfi yolundan başlığı çıkarır
-// /toolbox/belge-evrak[#anchor] → "Belge ve evrak"
-// /toolbox/hukuki-yardim[#anchor] → "Hukuki yardım"
-function toolboxEyebrow(atfi) {
-  if (!atfi) return 'Toolbox';
-  if (atfi.includes('hukuki-yardim')) return 'Hukuki yardım';
-  if (atfi.includes('belge-evrak')) return 'Belge ve evrak';
-  return 'Toolbox';
-}
 ---
 
 <!DOCTYPE html>
@@ -104,10 +94,12 @@ function toolboxEyebrow(atfi) {
         u.gruplar.map((g) => (
           <div class="grup">
             <div class="grup-baslik-wrap">
-              <span class="grup-numara">{g.numara}</span>
-              <h3 class="grup-baslik">{g.baslik}</h3>
+              <span class="grup-badge">{g.numara}</span>
+              <div class="grup-baslik-text">
+                <h3 class="grup-baslik">{g.baslik}</h3>
+                {g.alt_baslik && <div class="grup-alt">{g.alt_baslik}</div>}
+              </div>
             </div>
-            {g.alt_baslik && <div class="grup-alt">{g.alt_baslik}</div>}
             {g.intro && <p class="grup-intro">{g.intro}</p>}
             {g.kartlar && g.kartlar.length > 0 && (
               <div class="kart-listesi">
@@ -116,9 +108,6 @@ function toolboxEyebrow(atfi) {
                   const isYatay = k.vurgu === 'yatay';
                   return (
                     <a href={href} class={`kart ${vurguClass(k.vurgu)}`}>
-                      {isYatay && k.toolboxAtfi && (
-                        <div class="kart-toolbox-eyebrow">Toolbox &rsaquo; {toolboxEyebrow(k.toolboxAtfi)}</div>
-                      )}
                       <div class="kart-icerik">
                         <div class="kart-ikon">
                           <Icon name={`lucide:${k.ikon}`} width="28" height="28" />
@@ -300,12 +289,33 @@ function toolboxEyebrow(atfi) {
   .iskelet-notu [data-icon] { flex-shrink: 0; margin-top: 2px; color: var(--metin-soluk); }
 
   /* GRUP */
-  .grup { margin-top: 40px; }
-  .grup-baslik-wrap { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
-  .grup-numara { color: var(--coral); font-weight: 700; font-size: 14px; letter-spacing: 1px; }
-  .grup-baslik { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 700; }
-  .grup-alt { color: var(--metin-soluk); font-size: 15px; margin-bottom: 12px; }
-  .grup-intro { font-size: 15px; color: var(--metin-soluk); margin-bottom: 16px; }
+  .grup { margin-top: 48px; }
+  .grup-baslik-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .grup-badge {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--coral);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .grup-baslik-text { display: flex; flex-direction: column; gap: 2px; }
+  .grup-baslik { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 700; color: var(--metin); line-height: 1.2; }
+  .grup-alt { color: var(--metin-soluk); font-size: 15px; font-weight: 400; line-height: 1.4; }
+  .grup-intro { font-size: 15px; color: var(--metin-soluk); margin-bottom: 16px; margin-top: 4px; }
 
   /* KART — TEMEL */
   .kart-listesi { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
@@ -344,7 +354,6 @@ function toolboxEyebrow(atfi) {
   .kart-yatay .kart-icerik { padding: 16px 20px; }
   .kart-yatay .kart-ikon { color: var(--info); }
   .kart-yatay .kart-vurgu { color: var(--info); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .kart-toolbox-eyebrow { background: #DBEAFE; color: var(--info); font-size: 11px; font-weight: 600; padding: 4px 20px; letter-spacing: 0.5px; text-transform: uppercase; border-bottom: 1px solid #BFDBFE; }
   .kart-toolbox-link { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--info); font-weight: 600; text-decoration: underline; }
   .kart-toolbox-link:hover { color: #1D4ED8; }
 
@@ -385,6 +394,8 @@ function toolboxEyebrow(atfi) {
     .hero h1 { font-size: 36px; }
     .lead { font-size: 17px; }
     .ulke-baslik { font-size: 26px; }
+    .grup-baslik { font-size: 22px; }
+    .grup-badge { width: 24px; height: 24px; font-size: 12px; }
     .nav-links { gap: 16px; }
     .nav-links a { font-size: 14px; }
     .toolbox-fab { bottom: 16px; right: 16px; }
