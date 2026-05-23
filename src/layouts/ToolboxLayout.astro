@@ -1,0 +1,240 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { sayfa } = Astro.props;
+const data = sayfa.data;
+const { Content } = await sayfa.render();
+---
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{data.baslik} — Abul Rehber Toolbox</title>
+  <meta name="description" content={data.lead || data.baslik} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-inner">
+    <a href="/" class="logo">Abul Rehber</a>
+    <div class="nav-links">
+      <a href="/#konular">Konular</a>
+      <a href="/#ulkeler">Ülkeler</a>
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/yasal-bilgi">Yasal bilgi</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    {data.eyebrow && <div class="eyebrow">{data.eyebrow}</div>}
+    <h1>{data.baslik}</h1>
+    {data.lead && <p class="lead">{data.lead}</p>}
+  </div>
+</header>
+
+<!-- BÖLÜM SEÇİCİ (sticky) — sadece bolumler tanımlanmışsa -->
+{data.bolumler && data.bolumler.length > 0 && (
+  <div class="secici-wrap">
+    <div class="container secici">
+      <span class="secici-etiket">İçindekiler</span>
+      <div class="pills">
+        {data.bolumler.map((b) => (
+          <a href={`#${b.id}`} class="pill">{b.baslik}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+<!-- BÖLÜMLER -->
+<main class="container">
+  {data.bolumler && data.bolumler.map((b) => (
+    <section id={b.id} class="bolum">
+      <h2 class="bolum-baslik">{b.baslik}</h2>
+      <div class="bolum-icerik" set:html={b.icerik}></div>
+    </section>
+  ))}
+
+  <!-- Markdown body içerik (frontmatter dışı içerik varsa) -->
+  <div class="md-icerik">
+    <Content />
+  </div>
+
+  <!-- META FOOTER -->
+  <section class="meta">
+    <div class="meta-satir"><strong>Son kontrol:</strong> {data.son_kontrol.toLocaleDateString('tr-TR')}</div>
+    <div class="meta-satir"><strong>Bir sonraki kontrol:</strong> {data.bir_sonraki_kontrol.toLocaleDateString('tr-TR')}</div>
+    <div class="meta-satir"><strong>Versiyon:</strong> {data.versiyon}</div>
+    {data.son_not && <p class="son-not">{data.son_not}</p>}
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Abul Rehber — Yurt dışı hukuki ve bürokratik rehber. Bu sayfa rehber niteliğindedir.</p>
+    <p><a href="/yasal-bilgi">Yasal bilgi</a></p>
+  </div>
+</footer>
+
+<!-- TOOLBOX FAB (sayfada zaten varsa diğer toolbox'ı vurgulamak için) -->
+<div class="toolbox-fab" id="toolboxFab">
+  <button class="fab-button" aria-label="Toolbox" aria-expanded="false" id="fabButton">
+    <Icon name="lucide:briefcase" width="24" height="24" />
+  </button>
+  <div class="fab-panel" id="fabPanel">
+    <div class="fab-baslik">Toolbox</div>
+    <a href="/toolbox/hukuki-yardim" class="fab-link">
+      <Icon name="lucide:scale" width="18" height="18" />
+      <span>Hukuki yardım</span>
+    </a>
+    <a href="/toolbox/belge-evrak" class="fab-link">
+      <Icon name="lucide:file-text" width="18" height="18" />
+      <span>Belge ve evrak</span>
+    </a>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fabButton = document.getElementById('fabButton');
+    const fabPanel = document.getElementById('fabPanel');
+    const fabContainer = document.getElementById('toolboxFab');
+    
+    if (fabButton && fabPanel) {
+      fabButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = fabContainer.classList.toggle('open');
+        fabButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (!fabContainer.contains(e.target)) {
+          fabContainer.classList.remove('open');
+          fabButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          fabContainer.classList.remove('open');
+          fabButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  :root {
+    --bej: #FAEEDA;
+    --bej-hover: #FEF8F3;
+    --coral: #D85A30;
+    --coral-koyu: #993C1D;
+    --amber-koyu: #633806;
+    --metin: #2A1810;
+    --metin-soluk: #6B5147;
+    --cizgi: #E8DCC8;
+    --info-bg: #EFF6FF;
+    --info: #2563EB;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bej);
+    color: var(--metin);
+    line-height: 1.6;
+  }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* TOP NAV */
+  .topnav { background: var(--bej); border-bottom: 1px solid var(--cizgi); padding: 16px 0; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .logo { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 22px; color: var(--coral-koyu); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: var(--metin); text-decoration: none; font-weight: 500; font-size: 15px; }
+  .nav-links a:hover { color: var(--coral); }
+
+  /* HERO */
+  .hero { padding: 64px 0 48px; }
+  .eyebrow { color: var(--amber-koyu); font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .hero h1 { font-family: 'Source Serif 4', serif; font-size: 44px; font-weight: 700; color: var(--metin); line-height: 1.15; margin-bottom: 24px; }
+  .lead { font-size: 18px; color: var(--metin-soluk); max-width: 720px; line-height: 1.65; }
+
+  /* BÖLÜM SEÇİCİ */
+  .secici-wrap { position: sticky; top: 0; background: var(--bej); border-bottom: 1px solid var(--cizgi); z-index: 50; padding: 12px 0; }
+  .secici { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .secici-etiket { font-size: 13px; font-weight: 600; color: var(--metin-soluk); margin-right: 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { background: var(--bej-hover); border: 1px solid var(--cizgi); color: var(--metin); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.15s; }
+  .pill:hover { background: var(--coral); color: white; border-color: var(--coral); }
+
+  /* BÖLÜM */
+  .bolum { padding: 48px 0; border-bottom: 1px solid var(--cizgi); scroll-margin-top: 80px; }
+  .bolum-baslik { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 700; margin-bottom: 20px; color: var(--metin); }
+  .bolum-icerik { font-size: 16px; color: var(--metin); line-height: 1.7; }
+  .bolum-icerik p { margin-bottom: 16px; }
+  .bolum-icerik h3 { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 600; margin: 24px 0 12px; color: var(--metin); }
+  .bolum-icerik h4 { font-weight: 700; font-size: 16px; margin: 20px 0 8px; color: var(--coral-koyu); }
+  .bolum-icerik ul, .bolum-icerik ol { margin: 12px 0 16px 24px; }
+  .bolum-icerik li { margin-bottom: 6px; }
+  .bolum-icerik strong { color: var(--metin); font-weight: 700; }
+  .bolum-icerik a { color: var(--coral-koyu); font-weight: 500; }
+  .bolum-icerik a:hover { color: var(--coral); }
+  .bolum-icerik code { background: var(--bej-hover); padding: 2px 6px; border-radius: 3px; font-size: 14px; }
+
+  /* Markdown body */
+  .md-icerik { padding: 32px 0; font-size: 16px; color: var(--metin); line-height: 1.7; }
+  .md-icerik h2 { font-family: 'Source Serif 4', serif; font-size: 28px; margin: 32px 0 16px; }
+  .md-icerik h3 { font-family: 'Source Serif 4', serif; font-size: 20px; margin: 24px 0 12px; }
+  .md-icerik p { margin-bottom: 16px; }
+  .md-icerik ul, .md-icerik ol { margin: 12px 0 16px 24px; }
+  .md-icerik a { color: var(--coral-koyu); font-weight: 500; }
+
+  /* META */
+  .meta { padding: 32px 0; border-top: 1px solid var(--cizgi); font-size: 14px; color: var(--metin-soluk); }
+  .meta-satir { margin-bottom: 6px; }
+  .meta-satir strong { color: var(--metin); }
+  .son-not { font-style: italic; margin-top: 16px; font-size: 13px; }
+
+  /* FOOTER */
+  .site-footer { background: var(--coral-koyu); color: var(--bej); padding: 32px 0; margin-top: 56px; text-align: center; font-size: 14px; }
+  .site-footer a { color: var(--bej); }
+
+  /* TOOLBOX FAB */
+  .toolbox-fab { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
+  .fab-button { width: 56px; height: 56px; border-radius: 28px; background: var(--coral); color: white; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; transition: all 0.2s ease-out; }
+  .fab-button:hover { background: var(--coral-koyu); transform: scale(1.05); }
+  .fab-panel { position: absolute; bottom: 64px; right: 0; background: white; border: 1px solid var(--cizgi); border-radius: 12px; padding: 12px; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); opacity: 0; transform: translateY(8px); pointer-events: none; transition: all 0.2s ease-out; }
+  .toolbox-fab.open .fab-panel { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .fab-baslik { font-weight: 700; color: var(--coral-koyu); font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 8px 8px; border-bottom: 1px solid var(--cizgi); margin-bottom: 8px; }
+  .fab-link { display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-radius: 6px; color: var(--metin); text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.15s; }
+  .fab-link:hover { background: var(--bej-hover); color: var(--coral-koyu); }
+  .fab-link [data-icon] { color: var(--coral); }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 32px; }
+    .lead { font-size: 16px; }
+    .bolum-baslik { font-size: 24px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 14px; }
+    .toolbox-fab { bottom: 16px; right: 16px; }
+    .fab-button { width: 48px; height: 48px; }
+  }
+</style>
+
+</body>
+</html>
