@@ -10,7 +10,7 @@ eyebrow: "KONU 02"
 lead: "Almanya'ya gitmek, Almanya'da kalmaya devam etmek, eş veya çocuğu yanınıza almak, oturum izninizin reddi veya sınır dışı (Ausweisung) süreciyle karşılaşmak — bunların her biri farklı kanal ve süre kuralları işletir. Türkiye'ye geçici veya uzun süreli yerleşmek de bu sayfada — yabancı eşle dönen Türk vatandaşı, yabancı uyruklu emekli, çift vatandaşlı çocuğun yabancı ebeveyni. Hangi kuruma nasıl başvurabileceğinizi, hangi belge zincirinin gerektiğini gösteriyoruz."
 
 secici_etiket: "Hangi ülkeye veya hangi ülkede oturum"
-secici_yardim: "Bu konu çift yönlü çalışır: Türkiye sekmesi Türkiye'ye yerleşmek isteyenler için (yabancılar, Türk vatandaşının yabancı ailesi); Almanya sekmesi Almanya'da kalmaya devam etmek isteyenler için. Diğer 7 ülke için tam içerik Phase 2'de yazılacak."
+secici_yardim: "Bu konu çift yönlü çalışır: Türkiye sekmesi Türkiye'ye yerleşmek isteyenler için (yabancılar, Türk vatandaşının yabancı ailesi); Almanya sekmesi Almanya'da kalmaya devam etmek isteyenler için. Türkiye, Almanya ve Finlandiya tam içerikli; diğer 6 ülke için tam içerik Phase 2'de yazılacak."
 
 ulkeler:
   - kod: "TR"
@@ -209,7 +209,7 @@ ulkeler:
             vurgu: "Finlandiya'da oturum izni karar makamı"
             aciklama: "Tüm oturum izni başvuruları (ilk izin, yenileme, sürekli oturum izni, AB Uzun Süreli İkamet, aile birleşimi, çalışma izni, öğrenci izni, uluslararası koruma) tek noktada toplanır. Enter Finland portalı üzerinden online başvuru ve dosya takibi. Reddedilen kararlar için Hallinto-oikeus (idare mahkemesi) iptal davası kanalı açıktır. İçişleri Bakanlığı'na bağlıdır."
             link: "https://migri.fi"
-            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 3 Finlandiya"
+            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 2"
 
           - ikon: "id-card"
             baslik: "DVV (Digi- ja väestötietovirasto)"
@@ -218,7 +218,7 @@ ulkeler:
             vurgu: "Yerleşim sonrası nüfus kaydı ve dijital kimlik"
             aciklama: "Migri tarafından oturum izni verildikten sonra yerleşim adresinin ve kişisel bilgilerin Finlandiya nüfus sistemine kaydı (väestörekisteri). Suomi.fi dijital hizmetlerine erişim, kişisel kimlik numarası (henkilötunnus) tahsisi ve resmi belgelerin elektronik tebligatı bu kurum üzerinden işler. 2020'de Maistraatti ve Väestörekisterikeskus birleştirilerek kuruldu."
             link: "https://dvv.fi"
-            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 3 Finlandiya"
+            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 2"
 
           - ikon: "globe"
             baslik: "Türk konsoloslukları — Helsinki"
@@ -260,7 +260,7 @@ ulkeler:
             ulke_kodu: "FI"
             vurgu: "ikincil"
             aciklama: "Finnish Refugee Advice Centre (Pakolaisneuvonta) — sığınmacı, uluslararası koruma başvurusunda olanlar ve geçici koruma altındaki yabancılar için hukuki danışmanlık ve dilekçe hazırlığı; Migri reddine karşı strateji değerlendirmesi. Familia ry — Finlandiya'da yaşayan çok kültürlü aileler ve karma evlilikler için destek; kültürlerarası uyum, ebeveyn rehberliği, Finliyandiyalı eşle ilgili oturum süreçleri için dolaylı destek. Bu kuruluşlar farklı vakalara bakar — başvuru öncesi konuya göre seçim yapılmalı."
-            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 3 Finlandiya"
+            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 2"
 
   - kod: "FR"
     bayrak: "🇫🇷"
