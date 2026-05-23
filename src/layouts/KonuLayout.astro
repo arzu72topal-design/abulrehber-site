@@ -224,10 +224,16 @@ function badgeClass(tip) {
   </div>
 </footer>
 
-<!-- TOOLBOX FAB -->
+<!-- TOOLBOX FAB — pulse + tooltip + indicator nokta (v1.1) -->
 <div class="toolbox-fab" id="toolbox-fab">
-  <button class="fab-button" id="fab-button" aria-label="Toolbox aç" aria-expanded="false">
+  <div class="fab-tooltip" id="fab-tooltip" role="tooltip">
+    <span class="ft-baslik">Toolbox</span>
+    <span class="ft-alt"> · Hukuki yardım, belge ve evrak</span>
+    <div class="ft-arrow"></div>
+  </div>
+  <button class="fab-button" id="fab-button" aria-label="Toolbox: Hukuki yardım ve belge işlemleri" aria-expanded="false">
     <Icon name="lucide:briefcase" width="22" height="22" />
+    <span class="fab-indicator" id="fab-indicator" aria-hidden="true"></span>
   </button>
   <div class="fab-panel" role="menu">
     <div class="fab-baslik">Toolbox</div>
@@ -247,12 +253,33 @@ function badgeClass(tip) {
     // FAB toggle
     const fabContainer = document.getElementById('toolbox-fab');
     const fabButton = document.getElementById('fab-button');
+    const fabTooltip = document.getElementById('fab-tooltip');
+    const fabIndicator = document.getElementById('fab-indicator');
     if (fabContainer && fabButton) {
       fabButton.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = fabContainer.classList.toggle('open');
         fabButton.setAttribute('aria-expanded', String(isOpen));
+        // İlk açılıştan sonra indicator + pulse sönsün
+        if (isOpen && fabIndicator) {
+          fabContainer.classList.add('seen');
+        }
       });
+      // Hover tooltip
+      if (fabTooltip) {
+        fabButton.addEventListener('mouseenter', () => {
+          fabContainer.classList.add('tooltip-shown');
+        });
+        fabButton.addEventListener('mouseleave', () => {
+          fabContainer.classList.remove('tooltip-shown');
+        });
+        fabButton.addEventListener('focus', () => {
+          fabContainer.classList.add('tooltip-shown');
+        });
+        fabButton.addEventListener('blur', () => {
+          fabContainer.classList.remove('tooltip-shown');
+        });
+      }
       document.addEventListener('click', (e) => {
         if (!fabContainer.contains(e.target)) {
           fabContainer.classList.remove('open');
@@ -288,20 +315,30 @@ function badgeClass(tip) {
 
 <style>
   :root {
-    /* Manifest v1 paleti (atölye onayıyla korundu) */
-    --bej:           #FAEEDA;
-    --bej-hover:     #FEF8F3;
+    /* Manifest v1.1 paleti — Anadolu Terracotta (23 Mayıs 2026) */
+    /* Coral 400 + krem ailesinden eski Anadolu matbu estetiğine geçiş */
+    --bej:           #FBF7F1;   /* krem → açık kağıt */
+    --bej-hover:     #FAF1E6;   /* hover yüzeyi */
     --beyaz:         #FFFFFF;
-    --coral:         #D85A30;
-    --coral-koyu:    #993C1D;
-    --coral-soluk:   #F0997B;
-    --amber-koyu:    #633806;
-    --amber-derin:   #451A03;
-    --kenar-soft:    #FED7AA;
-    --kenar-orta:    #F0997B;
-    --metin:         #292524;
-    --metin-orta:    #44403C;
-    --metin-soluk:   #57534E;
+    --coral:         #B85C3B;   /* Coral 400 → Terracotta */
+    --coral-koyu:    #8B3E1F;   /* Coral koyu → Terracotta koyu */
+    --coral-soluk:   #D9C7A8;   /* hover kenarlık */
+    --amber-koyu:    #5C3A1F;   /* amber 800 → sepia */
+    --amber-derin:   #3D2817;   /* başlık ekstra koyu */
+    --kenar-soft:    #ECE2D0;   /* kart kenarlık */
+    --kenar-orta:    #D9C7A8;
+    --metin:         #3D2817;
+    --metin-orta:    #5C3A1F;
+    --metin-soluk:   #6B5849;   /* gövde — biraz daha sıcak */
+    /* Bronz aile (Profesyonel badge için) */
+    --bronz:         #7A5A2F;
+    --bronz-soft:    #F5EDE0;
+    --bronz-border:  #E8D9BD;
+    /* Nötr aile (Belge zinciri / İkincil badge için) */
+    --notr-soft:     #F0EBE0;
+    --notr-border:   #E0D6C0;
+    /* Pulse halo (FAB animasyonu için terracotta rgba) */
+    --coral-rgb:     184, 92, 59;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -319,7 +356,7 @@ function badgeClass(tip) {
   /* TOP NAV — blur sticky */
   .topnav {
     position: sticky; top: 0; z-index: 60;
-    background: rgba(250, 238, 218, 0.85);
+    background: rgba(251, 247, 241, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--kenar-soft);
@@ -369,7 +406,7 @@ function badgeClass(tip) {
   /* ULKE SECICI — sticky (bizim özelliğimiz) */
   .secici-wrap {
     position: sticky; top: 64px; z-index: 50;
-    background: rgba(250, 238, 218, 0.92);
+    background: rgba(251, 247, 241, 0.92);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 12px 0;
@@ -402,7 +439,7 @@ function badgeClass(tip) {
   .secici-pill.aktif {
     background: var(--coral); color: white;
     border-color: var(--coral);
-    box-shadow: 0 1px 3px rgba(216, 90, 48, 0.2);
+    box-shadow: 0 1px 3px rgba(var(--coral-rgb), 0.2);
   }
   .secici-pill .bayrak { font-size: 14px; line-height: 1; }
 
@@ -503,7 +540,7 @@ function badgeClass(tip) {
   }
   .kart:hover {
     border-color: var(--coral-soluk);
-    box-shadow: 0 4px 10px rgba(216, 90, 48, 0.08);
+    box-shadow: 0 4px 10px rgba(var(--coral-rgb), 0.08);
   }
   .kart-ikon {
     flex-shrink: 0;
@@ -560,13 +597,13 @@ function badgeClass(tip) {
     border: 1px solid; line-height: 1.3;
     white-space: nowrap;
   }
-  .b-resmi      { background: #FAECE7; color: #712B13; border-color: #F5C4B3; }
-  .b-profesyonel{ background: #FAEEDA; color: #633806; border-color: #FAC775; }
-  .b-stk        { background: #F1EFE8; color: #444441; border-color: #D3D1C7; }
-  .b-sektorel   { background: #F1EFE8; color: #444441; border-color: #D3D1C7; }
-  .b-ucretsiz   { background: #EAF3DE; color: #27500A; border-color: #C0DD97; }
-  .b-zincir     { background: #F1EFE8; color: #444441; border-color: #D3D1C7; }
-  .b-ikincil    { background: #FAEEDA; color: #633806; border-color: #FAC775; }
+  .b-resmi      { background: var(--bej-hover); color: var(--coral-koyu); border-color: var(--kenar-soft); }
+  .b-profesyonel{ background: var(--bronz-soft); color: var(--bronz); border-color: var(--bronz-border); }
+  .b-stk        { background: var(--notr-soft); color: var(--metin-soluk); border-color: var(--notr-border); }
+  .b-sektorel   { background: var(--notr-soft); color: var(--metin-soluk); border-color: var(--notr-border); }
+  .b-ucretsiz   { background: var(--bronz-soft); color: var(--bronz); border-color: var(--bronz-border); }
+  .b-zincir     { background: var(--notr-soft); color: var(--metin-soluk); border-color: var(--notr-border); }
+  .b-ikincil    { background: var(--bronz-soft); color: var(--bronz); border-color: var(--bronz-border); }
 
   /* ILGILI */
   .ilgili { padding: 48px 0 32px; border-top: 1px solid var(--kenar-soft); }
@@ -616,15 +653,29 @@ function badgeClass(tip) {
   .site-footer a:hover { color: var(--coral-koyu); }
   .site-footer p + p { margin-top: 6px; }
 
-  /* TOOLBOX FAB */
+  /* TOOLBOX FAB — v1.1: pulse + tooltip + indicator nokta */
+  @keyframes toolbox-pulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 0 0 0 rgba(var(--coral-rgb), 0.45); }
+    50%      { box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 0 0 14px rgba(var(--coral-rgb), 0); }
+  }
   .toolbox-fab { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
   .fab-button {
+    position: relative;
     width: 52px; height: 52px; border-radius: 16px;
     background: var(--coral); color: white;
     border: none; cursor: pointer;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     display: flex; align-items: center; justify-content: center;
-    transition: all 0.25s ease-out;
+    transition: background 0.25s ease-out;
+    animation: toolbox-pulse 2.4s ease-in-out infinite;
+  }
+  /* İlk açılıştan sonra pulse durur (seen class'ı eklenir) */
+  .toolbox-fab.seen .fab-button { animation: none; }
+  /* Açıkken de pulse durur (panel görünür, çağrıya gerek yok) */
+  .toolbox-fab.open .fab-button { animation: none; }
+  /* Hareket hassasiyeti olan kullanıcılara saygı */
+  @media (prefers-reduced-motion: reduce) {
+    .fab-button { animation: none !important; }
   }
   .fab-button:hover {
     background: var(--coral-koyu);
@@ -634,6 +685,63 @@ function badgeClass(tip) {
     transform: scale(1.1);
   }
   .fab-button [data-icon] { transition: transform 0.2s; }
+
+  /* İndicator nokta — "buraya bak, içerik var" mikro sinyal */
+  .fab-indicator {
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--coral-koyu);
+    border: 2px solid var(--bej);
+    pointer-events: none;
+  }
+  .toolbox-fab.seen .fab-indicator { display: none; }
+
+  /* Tooltip — hover/focus'ta solda görünür */
+  .fab-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%; transform: translateY(-50%) translateX(4px);
+    background: var(--beyaz);
+    border: 1px solid var(--kenar-soft);
+    color: var(--amber-koyu);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+  }
+  .toolbox-fab.tooltip-shown .fab-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  /* Panel açıkken tooltip görünmesin (çakışma önle) */
+  .toolbox-fab.open .fab-tooltip { display: none; }
+  .ft-baslik { font-weight: 600; }
+  .ft-alt { color: var(--metin-soluk); }
+  .ft-arrow {
+    position: absolute;
+    left: 100%; top: 50%; transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid var(--kenar-soft);
+  }
+  .ft-arrow::after {
+    content: '';
+    position: absolute;
+    left: -6px; top: -4px;
+    width: 0; height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid var(--beyaz);
+  }
+
+  /* Panel */
   .fab-panel {
     position: absolute; bottom: 64px; right: 0;
     background: white;
