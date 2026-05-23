@@ -4,12 +4,33 @@ import { Icon } from 'astro-icon/components';
 const { konu } = Astro.props;
 const data = konu.data;
 
-// Vurgu normalize — eski string ("Resmi", "Profesyonel") veya yeni enum (birincil/ikincil/yatay)
-// Eski string ise birincil varsayılır (geri uyum)
-function vurguClass(vurgu) {
-  if (vurgu === 'ikincil') return 'kart-ikincil';
-  if (vurgu === 'yatay') return 'kart-yatay';
-  return 'kart-birincil';
+// Vurgu normalize — atölye sonrası: tüm kartlar tek görsel sınıfa düşer.
+// "yatay" değeri içerik anlamında korunur (Belge zinciri badge tetiklenir),
+// ama görsel olarak diğer kartlardan ayrılmaz.
+function isYatayKart(vurgu) {
+  return vurgu === 'yatay';
+}
+function isIkincilKart(vurgu) {
+  return vurgu === 'ikincil';
+}
+
+// Toolbox eyebrow başlığı (atfı yolundan)
+function toolboxBaslik(atfi) {
+  if (!atfi) return 'Toolbox';
+  if (atfi.includes('hukuki-yardim')) return 'Hukuki yardım';
+  if (atfi.includes('belge-evrak')) return 'Belge ve evrak';
+  return 'Toolbox';
+}
+
+// Badge tip → CSS sınıf
+function badgeClass(tip) {
+  const t = (tip || '').toLowerCase();
+  if (t === 'resmi') return 'b-resmi';
+  if (t === 'profesyonel') return 'b-profesyonel';
+  if (t === 'stk') return 'b-stk';
+  if (t === 'sektörel' || t === 'sektorel') return 'b-sektorel';
+  if (t === 'ücretsiz' || t === 'ucretsiz') return 'b-ucretsiz';
+  return 'b-resmi';
 }
 ---
 
@@ -30,7 +51,10 @@ function vurguClass(vurgu) {
 <!-- TOP NAV -->
 <nav class="topnav">
   <div class="nav-inner">
-    <a href="/" class="logo">Abul Rehber</a>
+    <a href="/" class="logo">
+      <span class="logo-shield"><Icon name="lucide:shield" width="16" height="16" /></span>
+      <span class="logo-text">Abul Rehber</span>
+    </a>
     <div class="nav-links">
       <a href="/#konular">Konular</a>
       <a href="/#ulkeler">Ülkeler</a>
@@ -43,21 +67,34 @@ function vurguClass(vurgu) {
 <!-- HERO -->
 <header class="hero">
   <div class="container">
-    {data.eyebrow && <div class="eyebrow">{data.eyebrow}</div>}
+    {data.eyebrow && (
+      <div class="hero-eyebrow">
+        <span class="he-dot"></span>
+        <span>{data.eyebrow}</span>
+      </div>
+    )}
     <h1>{data.baslik}</h1>
     {data.lead && <p class="lead">{data.lead}</p>}
   </div>
 </header>
 
-<!-- ULKE SECICI (sticky) -->
+<!-- ULKE SECICI (sticky — bizim özelliğimiz, atölye atladı) -->
 {data.ulkeler && data.ulkeler.length > 0 && (
   <div class="secici-wrap">
-    <div class="container secici">
-      {data.secici_etiket && <span class="secici-etiket">{data.secici_etiket}</span>}
-      <div class="pills">
-        {data.ulkeler.map((u) => (
-          <a href={`#${u.kod}`} class="pill">{u.bayrak} {u.ad}</a>
-        ))}
+    <div class="container">
+      <div class="secici-card">
+        <div class="secici-label">
+          <Icon name="lucide:globe" width="14" height="14" />
+          <span>{data.secici_etiket || 'Hangi ülkede'}</span>
+        </div>
+        <div class="secici-pills">
+          {data.ulkeler.map((u, i) => (
+            <a href={`#${u.kod}`} class={`secici-pill ${i === 0 ? 'aktif' : ''}`}>
+              <span class="bayrak">{u.bayrak}</span>
+              <span>{u.ad}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -92,47 +129,50 @@ function vurguClass(vurgu) {
 
       {u.gruplar && u.gruplar.length > 0 ? (
         u.gruplar.map((g) => (
-          <div class="grup">
-            <div class="grup-baslik-wrap">
-              <span class="grup-badge">{g.numara}</span>
-              <div class="grup-baslik-text">
-                <h3 class="grup-baslik">{g.baslik}</h3>
-                {g.alt_baslik && <div class="grup-alt">{g.alt_baslik}</div>}
+          <section class="grup">
+            <div class="grup-head">
+              <span class="grup-num">{g.numara}</span>
+              <div class="grup-titles">
+                <h3>{g.baslik}</h3>
+                {g.alt_baslik && <p>{g.alt_baslik}</p>}
               </div>
             </div>
             {g.intro && <p class="grup-intro">{g.intro}</p>}
             {g.kartlar && g.kartlar.length > 0 && (
               <div class="kart-listesi">
                 {g.kartlar.map((k) => {
+                  const yatay = isYatayKart(k.vurgu);
+                  const ikincil = isIkincilKart(k.vurgu);
                   const href = k.detayliKart || k.link || (k.cardId ? `#${k.cardId}` : '#');
-                  const isYatay = k.vurgu === 'yatay';
                   return (
-                    <a href={href} class={`kart ${vurguClass(k.vurgu)}`}>
-                      <div class="kart-icerik">
-                        <div class="kart-ikon">
-                          <Icon name={`lucide:${k.ikon}`} width="28" height="28" />
-                        </div>
-                        <div class="kart-body">
-                          <div class="kart-ust">
-                            <div class="kart-baslik">{k.baslik}</div>
-                            <span class={`kart-tip tip-${k.tip.toLowerCase()}`}>{k.tip}</span>
+                    <a href={href} class="kart">
+                      <div class="kart-ikon">
+                        <Icon name={`lucide:${k.ikon}`} width="20" height="20" />
+                      </div>
+                      <div class="kart-body">
+                        <div class="kart-head">
+                          <div class="kart-baslik-grup">
+                            <h4 class="kart-baslik">{k.baslik}</h4>
+                            {yatay && <span class="badge b-zincir">Belge zinciri</span>}
+                            {ikincil && <span class="badge b-ikincil">İkincil kanal</span>}
                           </div>
-                          <div class="kart-vurgu">{k.vurgu === 'ikincil' ? 'İkincil kanal' : k.vurgu === 'yatay' ? 'Belge zinciri' : ''}</div>
-                          <p class="kart-aciklama">{k.aciklama}</p>
-                          {k.not && <div class="kart-not">{k.not}</div>}
-                          {isYatay && k.toolboxAtfi && (
-                            <a href={k.toolboxAtfi} class="kart-toolbox-link" onclick="event.stopPropagation()">
-                              Toolbox &rsaquo; tam detay
-                            </a>
-                          )}
+                          {k.tip && <span class={`badge ${badgeClass(k.tip)}`}>{k.tip}</span>}
                         </div>
+                        <p class="kart-aciklama">{k.aciklama}</p>
+                        {k.not && <div class="kart-not">{k.not}</div>}
+                        {(yatay || k.detayliKart) && (
+                          <span class="kart-toolbox-link">
+                            {yatay && k.toolboxAtfi ? `Toolbox · ${toolboxBaslik(k.toolboxAtfi)}` : 'Tam detay'}
+                            <Icon name="lucide:chevron-right" width="14" height="14" />
+                          </span>
+                        )}
                       </div>
                     </a>
                   );
                 })}
               </div>
             )}
-          </div>
+          </section>
         ))
       ) : (
         <div class="iskelet-notu">
@@ -151,7 +191,7 @@ function vurguClass(vurgu) {
         {data.ilgili_konular.map((i) => (
           <a href={i.link} class="ilgili-kart">
             <div class="ilgili-ikon">
-              <Icon name={`lucide:${i.ikon}`} width="24" height="24" />
+              <Icon name={`lucide:${i.ikon}`} width="22" height="22" />
             </div>
             <div class="ilgili-baslik">{i.baslik}</div>
             <div class="ilgili-vurgu">{i.vurgu}</div>
@@ -163,243 +203,486 @@ function vurguClass(vurgu) {
   )}
 
   <!-- META FOOTER -->
-  <section class="meta">
-    <div class="meta-satir"><strong>Son kontrol:</strong> {data.son_kontrol.toLocaleDateString('tr-TR')}</div>
-    <div class="meta-satir"><strong>Bir sonraki kontrol:</strong> {data.bir_sonraki_kontrol.toLocaleDateString('tr-TR')}</div>
-    <div class="meta-satir"><strong>Sayfa versiyonu:</strong> {data.versiyon}</div>
-    {data.birincil_kaynaklar && <div class="meta-satir"><strong>Birincil kaynaklar:</strong> {data.birincil_kaynaklar}</div>}
-    {data.son_not && <p class="son-not">{data.son_not}</p>}
-  </section>
+  {(data.birincil_kaynaklar || data.son_kontrol || data.son_not) && (
+    <section class="meta">
+      {data.birincil_kaynaklar && (
+        <div class="meta-satir"><strong>Birincil kaynaklar:</strong> {data.birincil_kaynaklar}</div>
+      )}
+      {data.son_kontrol && (
+        <div class="meta-satir"><strong>Son kontrol:</strong> {data.son_kontrol.toLocaleDateString('tr-TR')} · <strong>Bir sonraki kontrol:</strong> {data.bir_sonraki_kontrol && data.bir_sonraki_kontrol.toLocaleDateString('tr-TR')} · <strong>Versiyon:</strong> {data.versiyon}</div>
+      )}
+      {data.son_not && <p class="son-not">{data.son_not}</p>}
+    </section>
+  )}
 </main>
 
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
-    <p>Abul Rehber — Yurt dışı hukuki ve bürokratik rehber. Bu sayfa rehber niteliğindedir.</p>
-    <p><a href="/yasal-bilgi">Yasal bilgi</a></p>
+    <p>© 2026 Abul Rehber. 1136 sayılı Avukatlık Kanunu uyarınca hukuki tavsiye değildir, bilgi rehberidir.</p>
+    <p><a href="/hakkimizda">Hakkımızda</a> · <a href="/yasal-bilgi">Yasal bilgi</a> · <a href="mailto:iletisim@abulrehber.com">iletisim@abulrehber.com</a></p>
   </div>
 </footer>
 
 <!-- TOOLBOX FAB -->
-<div class="toolbox-fab" id="toolboxFab">
-  <button class="fab-button" aria-label="Toolbox" aria-expanded="false" id="fabButton">
-    <Icon name="lucide:briefcase" width="24" height="24" />
+<div class="toolbox-fab" id="toolbox-fab">
+  <button class="fab-button" id="fab-button" aria-label="Toolbox aç" aria-expanded="false">
+    <Icon name="lucide:briefcase" width="22" height="22" />
   </button>
-  <div class="fab-panel" id="fabPanel">
+  <div class="fab-panel" role="menu">
     <div class="fab-baslik">Toolbox</div>
-    <a href="/toolbox/hukuki-yardim" class="fab-link">
+    <a href="/toolbox/hukuki-yardim" class="fab-link" role="menuitem">
       <Icon name="lucide:scale" width="18" height="18" />
       <span>Hukuki yardım</span>
     </a>
-    <a href="/toolbox/belge-evrak" class="fab-link">
+    <a href="/toolbox/belge-evrak" class="fab-link" role="menuitem">
       <Icon name="lucide:file-text" width="18" height="18" />
       <span>Belge ve evrak</span>
     </a>
   </div>
 </div>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function() {
-    const fabButton = document.getElementById('fabButton');
-    const fabPanel = document.getElementById('fabPanel');
-    const fabContainer = document.getElementById('toolboxFab');
-    
-    if (fabButton && fabPanel) {
-      fabButton.addEventListener('click', function(e) {
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // FAB toggle
+    const fabContainer = document.getElementById('toolbox-fab');
+    const fabButton = document.getElementById('fab-button');
+    if (fabContainer && fabButton) {
+      fabButton.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = fabContainer.classList.toggle('open');
-        fabButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        fabButton.setAttribute('aria-expanded', String(isOpen));
       });
-      
-      document.addEventListener('click', function(e) {
+      document.addEventListener('click', (e) => {
         if (!fabContainer.contains(e.target)) {
           fabContainer.classList.remove('open');
           fabButton.setAttribute('aria-expanded', 'false');
         }
       });
-      
-      document.addEventListener('keydown', function(e) {
+      document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           fabContainer.classList.remove('open');
           fabButton.setAttribute('aria-expanded', 'false');
         }
       });
     }
+
+    // Sticky country pill — aktif ülke scroll sırasında güncellenir
+    const pills = document.querySelectorAll('.secici-pill');
+    const ulkeBloklar = document.querySelectorAll('.ulke-blok');
+    if (pills.length && ulkeBloklar.length && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            pills.forEach((p) => {
+              p.classList.toggle('aktif', p.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+      ulkeBloklar.forEach((blok) => observer.observe(blok));
+    }
   });
 </script>
 
 <style>
   :root {
-    --bej: #FAEEDA;
-    --bej-hover: #FEF8F3;
-    --coral: #D85A30;
-    --coral-koyu: #993C1D;
-    --amber-koyu: #633806;
-    --metin: #2A1810;
-    --metin-soluk: #6B5147;
-    --cizgi: #E8DCC8;
-    --info-bg: #EFF6FF;
-    --info: #2563EB;
+    /* Manifest v1 paleti (atölye onayıyla korundu) */
+    --bej:           #FAEEDA;
+    --bej-hover:     #FEF8F3;
+    --beyaz:         #FFFFFF;
+    --coral:         #D85A30;
+    --coral-koyu:    #993C1D;
+    --coral-soluk:   #F0997B;
+    --amber-koyu:    #633806;
+    --amber-derin:   #451A03;
+    --kenar-soft:    #FED7AA;
+    --kenar-orta:    #F0997B;
+    --metin:         #292524;
+    --metin-orta:    #44403C;
+    --metin-soluk:   #57534E;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bej);
     color: var(--metin);
-    line-height: 1.6;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
   }
 
   .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
-  /* TOP NAV */
-  .topnav { background: var(--bej); border-bottom: 1px solid var(--cizgi); padding: 16px 0; }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .logo { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 22px; color: var(--coral-koyu); text-decoration: none; }
-  .nav-links { display: flex; gap: 28px; }
-  .nav-links a { color: var(--metin); text-decoration: none; font-weight: 500; font-size: 15px; }
-  .nav-links a:hover { color: var(--coral); }
+  /* TOP NAV — blur sticky */
+  .topnav {
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(250, 238, 218, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--kenar-soft);
+  }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto; padding: 0 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 64px;
+  }
+  .logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .logo-shield {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--coral); color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .logo-text { font-weight: 700; font-size: 17px; color: var(--amber-koyu); letter-spacing: -0.2px; }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-links a {
+    padding: 8px 14px; font-size: 14px; font-weight: 500;
+    color: var(--metin-orta); text-decoration: none;
+    border-radius: 8px; transition: background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover { background: white; color: var(--amber-koyu); }
 
   /* HERO */
-  .hero { padding: 64px 0 48px; }
-  .eyebrow { color: var(--amber-koyu); font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
-  .hero h1 { font-family: 'Source Serif 4', serif; font-size: 48px; font-weight: 700; color: var(--metin); line-height: 1.15; margin-bottom: 24px; }
-  .lead { font-size: 19px; color: var(--metin-soluk); max-width: 720px; line-height: 1.65; }
+  .hero { padding: 56px 0 32px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 12px; border-radius: 999px;
+    background: white; border: 1px solid var(--kenar-soft);
+    color: var(--amber-koyu);
+    font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+    margin-bottom: 20px;
+  }
+  .he-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+  .hero h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 48px; font-weight: 700; line-height: 1.1;
+    color: var(--amber-derin); letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+  .lead {
+    font-size: 17px; color: var(--metin-orta);
+    line-height: 1.7; max-width: 700px;
+  }
 
-  /* ULKE SECICI */
-  .secici-wrap { position: sticky; top: 0; background: var(--bej); border-bottom: 1px solid var(--cizgi); z-index: 50; padding: 12px 0; }
-  .secici { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .secici-etiket { font-size: 13px; font-weight: 600; color: var(--metin-soluk); margin-right: 8px; }
-  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pill { background: var(--bej-hover); border: 1px solid var(--cizgi); color: var(--metin); padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.15s; }
-  .pill:hover { background: var(--coral); color: white; border-color: var(--coral); }
+  /* ULKE SECICI — sticky (bizim özelliğimiz) */
+  .secici-wrap {
+    position: sticky; top: 64px; z-index: 50;
+    background: rgba(250, 238, 218, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--kenar-soft);
+  }
+  .secici-card {
+    background: white;
+    border: 1px solid var(--kenar-soft);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .secici-label {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 10px; font-weight: 600; color: var(--amber-koyu);
+    letter-spacing: 1.2px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .secici-label [data-icon] { color: var(--coral); }
+  .secici-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+  .secici-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 13px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    text-decoration: none;
+    background: var(--bej-hover); color: var(--amber-koyu);
+    border: 1px solid var(--kenar-soft);
+    transition: all 0.15s ease-out;
+  }
+  .secici-pill:hover { background: var(--bej); }
+  .secici-pill.aktif {
+    background: var(--coral); color: white;
+    border-color: var(--coral);
+    box-shadow: 0 1px 3px rgba(216, 90, 48, 0.2);
+  }
+  .secici-pill .bayrak { font-size: 14px; line-height: 1; }
 
   /* ULKE BLOK */
-  .ulke-blok { padding: 56px 0; border-bottom: 1px solid var(--cizgi); scroll-margin-top: 80px; }
-  .ulke-baslik { font-family: 'Source Serif 4', serif; font-size: 32px; font-weight: 700; margin-bottom: 16px; }
-  .ulke-intro { font-size: 17px; color: var(--metin-soluk); margin-bottom: 24px; }
+  .ulke-blok {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--kenar-soft);
+    scroll-margin-top: 160px;
+  }
+  .ulke-baslik {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--amber-derin); line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .ulke-intro {
+    font-size: 16px; color: var(--metin-orta);
+    line-height: 1.7; margin-bottom: 24px;
+    max-width: 720px;
+  }
 
   /* BILGI NOTU */
-  .bilgi-notu { background: var(--bej-hover); border-left: 3px solid var(--coral); padding: 20px 24px; margin: 24px 0 40px; border-radius: 6px; }
-  .bn-baslik { font-weight: 700; color: var(--coral-koyu); margin-bottom: 8px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
-  .bn-metin { font-size: 15px; color: var(--metin); }
+  .bilgi-notu {
+    background: var(--bej-hover);
+    border: 1px solid var(--kenar-soft);
+    border-left: 3px solid var(--coral);
+    padding: 18px 22px;
+    margin: 16px 0 32px;
+    border-radius: 10px;
+  }
+  .bn-baslik {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 700; color: var(--amber-koyu);
+    font-size: 14px; margin-bottom: 8px;
+    letter-spacing: -0.1px;
+  }
+  .bn-baslik [data-icon] { color: var(--coral); flex-shrink: 0; }
+  .bn-metin { font-size: 14.5px; color: var(--metin-orta); line-height: 1.7; }
 
   /* ISKELET NOTU */
-  .iskelet-notu { display: flex; align-items: flex-start; gap: 10px; background: var(--bej-hover); border: 1px dashed var(--cizgi); padding: 16px 20px; border-radius: 6px; margin-top: 24px; font-size: 14px; color: var(--metin-soluk); line-height: 1.55; }
-  .iskelet-notu [data-icon] { flex-shrink: 0; margin-top: 2px; color: var(--metin-soluk); }
+  .iskelet-notu {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--bej-hover);
+    border: 1px dashed var(--kenar-soft);
+    padding: 14px 18px; border-radius: 8px;
+    margin-top: 24px;
+    font-size: 13px; color: var(--metin-soluk); line-height: 1.6;
+  }
+  .iskelet-notu [data-icon] { flex-shrink: 0; margin-top: 2px; opacity: 0.7; }
 
-  /* GRUP */
-  .grup { margin-top: 48px; }
-  .grup-baslik-wrap {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  /* GRUP — atölye karelendirmesi */
+  .grup { margin-top: 40px; }
+  .grup-head {
+    display: flex; align-items: center; gap: 12px;
     margin-bottom: 12px;
   }
-  .grup-badge {
+  .grup-num {
     flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: var(--coral);
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--coral); color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
   }
-  .grup-baslik-text { display: flex; flex-direction: column; gap: 2px; }
-  .grup-baslik { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 700; color: var(--metin); line-height: 1.2; }
-  .grup-alt { color: var(--metin-soluk); font-size: 15px; font-weight: 400; line-height: 1.4; }
-  .grup-intro { font-size: 15px; color: var(--metin-soluk); margin-bottom: 16px; margin-top: 4px; }
+  .grup-titles h3 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--amber-derin); line-height: 1.2;
+  }
+  .grup-titles p {
+    font-size: 13px; color: var(--metin-soluk);
+    margin-top: 2px;
+  }
+  .grup-intro {
+    font-size: 14.5px; color: var(--metin-orta);
+    line-height: 1.7; margin: 0 0 16px 44px;
+    max-width: 660px;
+  }
 
-  /* KART — TEMEL */
-  .kart-listesi { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-  .kart { display: block; background: white; border: 1px solid var(--cizgi); border-radius: 10px; padding: 0; text-decoration: none; color: var(--metin); transition: all 0.15s; overflow: hidden; }
-  .kart:hover { border-color: var(--coral); background: var(--bej-hover); }
-  .kart-icerik { display: flex; gap: 16px; padding: 20px; }
-  .kart-ikon { flex-shrink: 0; color: var(--coral); display: flex; align-items: flex-start; padding-top: 2px; }
+  /* KART LISTESI */
+  .kart-listesi {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-left: 0;
+  }
+  @media (min-width: 768px) {
+    .kart-listesi { margin-left: 44px; }
+  }
+
+  /* KART — atölye: tek tip beyaz, soft kenar, 44x44 ikon, hover Coral fill */
+  .kart {
+    display: flex; gap: 14px;
+    background: white;
+    border: 1px solid var(--kenar-soft);
+    border-radius: 16px;
+    padding: 20px;
+    text-decoration: none; color: var(--metin);
+    transition: all 0.25s ease-out;
+    overflow: hidden;
+  }
+  .kart:hover {
+    border-color: var(--coral-soluk);
+    box-shadow: 0 4px 10px rgba(216, 90, 48, 0.08);
+  }
+  .kart-ikon {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    background: var(--bej-hover);
+    border: 1px solid var(--kenar-soft);
+    color: var(--amber-koyu);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.25s ease-out;
+  }
+  .kart:hover .kart-ikon {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: white;
+  }
   .kart-body { flex: 1; min-width: 0; }
-  .kart-ust { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
-  .kart-baslik { font-weight: 600; font-size: 16px; }
-  .kart-tip { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; background: var(--cizgi); color: var(--metin); }
-  .tip-resmi { background: #E8DCC8; color: var(--amber-koyu); }
-  .tip-profesyonel { background: #D8E8DC; color: #2D5A3D; }
-  .tip-stk { background: #DCE0E8; color: #2D3D5A; }
-  .tip-ücretsiz { background: #F0DCDC; color: #6A2D2D; }
-  .tip-sektörel { background: #EADCE8; color: #5A2D5A; }
-  .kart-vurgu { font-size: 14px; color: var(--coral-koyu); font-weight: 500; margin-bottom: 6px; }
-  .kart-vurgu:empty { display: none; }
-  .kart-aciklama { font-size: 14px; color: var(--metin-soluk); line-height: 1.55; }
-  .kart-not { font-size: 12px; color: var(--metin-soluk); font-style: italic; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--cizgi); }
+  .kart-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+  }
+  .kart-baslik-grup {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    flex: 1; min-width: 0;
+  }
+  .kart-baslik {
+    font-size: 15px; font-weight: 600;
+    color: var(--amber-derin); line-height: 1.35;
+  }
+  .kart-aciklama {
+    font-size: 14px; color: var(--metin-orta);
+    line-height: 1.7; margin-top: 2px;
+  }
+  .kart-not {
+    font-size: 12px; color: var(--metin-soluk);
+    font-style: italic;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px dashed var(--kenar-soft);
+  }
+  .kart-toolbox-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 12px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+    color: var(--amber-koyu);
+  }
+  .kart:hover .kart-toolbox-link { color: var(--coral-koyu); }
 
-  /* KART — VARYATLAR */
-  /* Birincil: mevcut (varsayılan) */
-  .kart-birincil { border: 1px solid var(--cizgi); }
-  .kart-birincil:hover { border-color: var(--coral); }
-
-  /* İkincil: daha düşük vurgu */
-  .kart-ikincil { border: 1px solid #D2CFC6; background: #FAFAF8; }
-  .kart-ikincil:hover { border-color: #A8A39A; background: white; }
-  .kart-ikincil .kart-ikon { color: #75716A; }
-  .kart-ikincil .kart-vurgu { color: #75716A; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-  /* Yatay: Toolbox bağlantılı kompakt */
-  .kart-yatay { background: var(--info-bg); border: 1px solid #BFDBFE; }
-  .kart-yatay:hover { border-color: var(--info); background: #DBEAFE; }
-  .kart-yatay .kart-icerik { padding: 16px 20px; }
-  .kart-yatay .kart-ikon { color: var(--info); }
-  .kart-yatay .kart-vurgu { color: var(--info); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .kart-toolbox-link { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--info); font-weight: 600; text-decoration: underline; }
-  .kart-toolbox-link:hover { color: #1D4ED8; }
+  /* BADGE SISTEMI — atölye 3 tip + ek tip ler (sıcak ton ailesi) */
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 9px; border-radius: 5px;
+    font-size: 9.5px; font-weight: 600;
+    letter-spacing: 1.3px; text-transform: uppercase;
+    border: 1px solid; line-height: 1.3;
+    white-space: nowrap;
+  }
+  .b-resmi      { background: #FAECE7; color: #712B13; border-color: #F5C4B3; }
+  .b-profesyonel{ background: #FAEEDA; color: #633806; border-color: #FAC775; }
+  .b-stk        { background: #F1EFE8; color: #444441; border-color: #D3D1C7; }
+  .b-sektorel   { background: #F1EFE8; color: #444441; border-color: #D3D1C7; }
+  .b-ucretsiz   { background: #EAF3DE; color: #27500A; border-color: #C0DD97; }
+  .b-zincir     { background: #F1EFE8; color: #444441; border-color: #D3D1C7; }
+  .b-ikincil    { background: #FAEEDA; color: #633806; border-color: #FAC775; }
 
   /* ILGILI */
-  .ilgili { padding: 56px 0; border-top: 1px solid var(--cizgi); }
-  .ilgili h2 { font-family: 'Source Serif 4', serif; font-size: 28px; margin-bottom: 24px; }
-  .ilgili-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .ilgili-kart { background: white; border: 1px solid var(--cizgi); border-radius: 10px; padding: 20px; text-decoration: none; color: var(--metin); transition: all 0.15s; }
-  .ilgili-kart:hover { border-color: var(--coral); background: var(--bej-hover); }
+  .ilgili { padding: 48px 0 32px; border-top: 1px solid var(--kenar-soft); }
+  .ilgili h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 26px; color: var(--amber-derin); margin-bottom: 20px;
+  }
+  .ilgili-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .ilgili-kart {
+    background: white;
+    border: 1px solid var(--kenar-soft);
+    border-radius: 14px;
+    padding: 18px;
+    text-decoration: none; color: var(--metin);
+    transition: all 0.2s;
+  }
+  .ilgili-kart:hover { border-color: var(--coral-soluk); }
   .ilgili-ikon { color: var(--coral); margin-bottom: 10px; }
-  .ilgili-baslik { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-  .ilgili-vurgu { font-size: 13px; color: var(--coral-koyu); margin-bottom: 6px; }
-  .ilgili-aciklama { font-size: 13px; color: var(--metin-soluk); }
+  .ilgili-baslik { font-weight: 600; font-size: 15px; color: var(--amber-derin); margin-bottom: 4px; }
+  .ilgili-vurgu { font-size: 12px; color: var(--amber-koyu); margin-bottom: 6px; font-weight: 500; }
+  .ilgili-aciklama { font-size: 13px; color: var(--metin-soluk); line-height: 1.6; }
 
   /* META */
-  .meta { padding: 32px 0; border-top: 1px solid var(--cizgi); font-size: 14px; color: var(--metin-soluk); }
+  .meta {
+    padding: 32px 0;
+    border-top: 1px solid var(--kenar-soft);
+    font-size: 13px; color: var(--metin-soluk);
+  }
   .meta-satir { margin-bottom: 6px; }
-  .meta-satir strong { color: var(--metin); }
-  .son-not { font-style: italic; margin-top: 16px; font-size: 13px; }
+  .meta-satir strong { color: var(--metin-orta); }
+  .son-not { font-style: italic; margin-top: 12px; }
 
   /* FOOTER */
-  .site-footer { background: var(--coral-koyu); color: var(--bej); padding: 32px 0; margin-top: 56px; text-align: center; font-size: 14px; }
-  .site-footer a { color: var(--bej); }
+  .site-footer {
+    margin-top: 64px;
+    padding: 32px 0;
+    border-top: 1px solid var(--kenar-soft);
+    background: var(--bej);
+    text-align: center;
+    font-size: 13px; color: var(--metin-soluk);
+  }
+  .site-footer a { color: var(--amber-koyu); text-decoration: none; }
+  .site-footer a:hover { color: var(--coral-koyu); }
+  .site-footer p + p { margin-top: 6px; }
 
   /* TOOLBOX FAB */
   .toolbox-fab { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
-  .fab-button { width: 56px; height: 56px; border-radius: 28px; background: var(--coral); color: white; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; transition: all 0.2s ease-out; }
-  .fab-button:hover { background: var(--coral-koyu); transform: scale(1.05); }
-  .fab-panel { position: absolute; bottom: 64px; right: 0; background: white; border: 1px solid var(--cizgi); border-radius: 12px; padding: 12px; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); opacity: 0; transform: translateY(8px); pointer-events: none; transition: all 0.2s ease-out; }
+  .fab-button {
+    width: 52px; height: 52px; border-radius: 16px;
+    background: var(--coral); color: white;
+    border: none; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s ease-out;
+  }
+  .fab-button:hover {
+    background: var(--coral-koyu);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  }
+  .fab-button:hover [data-icon] {
+    transform: scale(1.1);
+  }
+  .fab-button [data-icon] { transition: transform 0.2s; }
+  .fab-panel {
+    position: absolute; bottom: 64px; right: 0;
+    background: white;
+    border: 1px solid var(--kenar-soft);
+    border-radius: 14px; padding: 12px;
+    min-width: 220px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    opacity: 0; transform: translateY(8px); pointer-events: none;
+    transition: all 0.2s ease-out;
+  }
   .toolbox-fab.open .fab-panel { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .fab-baslik { font-weight: 700; color: var(--coral-koyu); font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 8px 8px; border-bottom: 1px solid var(--cizgi); margin-bottom: 8px; }
-  .fab-link { display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-radius: 6px; color: var(--metin); text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.15s; }
-  .fab-link:hover { background: var(--bej-hover); color: var(--coral-koyu); }
+  .fab-baslik {
+    font-weight: 700; color: var(--amber-koyu);
+    font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 4px 8px 10px;
+    border-bottom: 1px solid var(--kenar-soft);
+    margin-bottom: 8px;
+  }
+  .fab-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 8px; border-radius: 8px;
+    color: var(--metin); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: background 0.15s;
+  }
+  .fab-link:hover { background: var(--bej-hover); color: var(--amber-koyu); }
   .fab-link [data-icon] { color: var(--coral); }
 
   /* MOBILE */
   @media (max-width: 640px) {
-    .hero h1 { font-size: 36px; }
-    .lead { font-size: 17px; }
+    .hero { padding: 40px 0 24px; }
+    .hero h1 { font-size: 32px; }
+    .lead { font-size: 16px; }
     .ulke-baslik { font-size: 26px; }
-    .grup-baslik { font-size: 22px; }
-    .grup-badge { width: 24px; height: 24px; font-size: 12px; }
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 14px; }
+    .grup-titles h3 { font-size: 20px; }
+    .grup-intro { margin-left: 0; }
+    .nav-links { gap: 0; }
+    .nav-links a { padding: 6px 10px; font-size: 13px; }
     .toolbox-fab { bottom: 16px; right: 16px; }
     .fab-button { width: 48px; height: 48px; }
+    .kart { padding: 16px; }
+    .kart-ikon { width: 40px; height: 40px; }
+  }
+
+  /* PRINT */
+  @media print {
+    .topnav, .secici-wrap, .toolbox-fab, .site-footer { display: none; }
+    body { background: white; }
+    .kart { break-inside: avoid; }
   }
 </style>
 
