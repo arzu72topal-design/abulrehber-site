@@ -197,6 +197,7 @@ ulkeler:
             vurgu: "yatay"
             toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
             aciklama: "Almanya'ya yerleşmiş göçmenler için ücretsiz genel danışmanlık (Caritas, AWO, Diakonisches Werk eliyle yürür). Suç mağduru olduğunuzda doğrudan kapsam dışında olsa da MBE size uygun uzman kuruma (Weisser Ring, Frauenberatungsstelle, Beratungshilfe başvurusu) yönlendirme yapar — özellikle Almanca yetersiz veya Almanya sistemine yabancı kişiler için pratik başlangıç noktası."
+            not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
           - ikon: "shopping-cart"
             baslik: "Verbraucherzentrale"
@@ -331,6 +332,16 @@ Verbraucherzentrale:
   danışmanlık" ana evi olarak yeniden konumlanmalı. Mülk + Suç + Finans
   + Sağlık + Vergi sayfalarında yatay kart olur. Kol 5 yeniden açıldığında
   bu yapısal düzeltme yapılır.
+
+MBE — UYGULANDI (Vize-oturum aktarımı, 23 Mayıs 2026):
+  Önceki Suç-mağduriyet v2 kararı: MBE 🟡 yatay, ana ev Toolbox > Hukuki
+  yardım > Almanya. Bu karar Vize-oturum aktarımı sırasında revize edildi.
+  Yeni yapı: MBE'nin gerçek ana evi Vize-oturum sayfası (göç danışmanlığı
+  dikey rolü); diğer konularda yatay + "ana ev Vize-oturum" notu
+  (Verbraucherzentrale paterni). Suç-mağduriyet'teki MBE kartı bu kararla
+  güncellendi: vurgu yatay korundu, toolboxAtfi korundu, "not" alanına
+  "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam
+  içerik orada." eklendi. Yapısal düzeltme tamamlandı.
 
 Türk konsoloslukları (TR-Suç ve DE-Suç):
   Şu an: TR-Suç ve DE-Suç'ta birincil kart (suç duyurusu iletim + sınır
