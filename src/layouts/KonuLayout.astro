@@ -143,7 +143,12 @@ function badgeClass(tip) {
                 {g.kartlar.map((k) => {
                   const yatay = isYatayKart(k.vurgu);
                   const ikincil = isIkincilKart(k.vurgu);
-                  const href = k.detayliKart || k.link || (k.cardId ? `#${k.cardId}` : '#');
+                  // href fallback chain:
+                  // detayliKart > link > toolboxAtfi (yatay kartlar için) > cardId anchor > '#'
+                  const href = k.detayliKart
+                    || k.link
+                    || (yatay && k.toolboxAtfi ? k.toolboxAtfi : null)
+                    || (k.cardId ? `#${k.cardId}` : '#');
                   return (
                     <a href={href} class="kart">
                       <div class="kart-ikon">
