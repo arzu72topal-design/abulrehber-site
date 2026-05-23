@@ -3,7 +3,6 @@ import { Icon } from 'astro-icon/components';
 
 const { sayfa } = Astro.props;
 const data = sayfa.data;
-const { Content } = await sayfa.render();
 ---
 
 <!DOCTYPE html>
@@ -42,7 +41,7 @@ const { Content } = await sayfa.render();
   </div>
 </header>
 
-<!-- BÖLÜM SEÇİCİ (sticky) — sadece bolumler tanımlanmışsa -->
+<!-- BÖLÜM SEÇİCİ (sticky) -->
 {data.bolumler && data.bolumler.length > 0 && (
   <div class="secici-wrap">
     <div class="container secici">
@@ -65,11 +64,6 @@ const { Content } = await sayfa.render();
     </section>
   ))}
 
-  <!-- Markdown body içerik (frontmatter dışı içerik varsa) -->
-  <div class="md-icerik">
-    <Content />
-  </div>
-
   <!-- META FOOTER -->
   <section class="meta">
     <div class="meta-satir"><strong>Son kontrol:</strong> {data.son_kontrol.toLocaleDateString('tr-TR')}</div>
@@ -86,7 +80,7 @@ const { Content } = await sayfa.render();
   </div>
 </footer>
 
-<!-- TOOLBOX FAB (sayfada zaten varsa diğer toolbox'ı vurgulamak için) -->
+<!-- TOOLBOX FAB -->
 <div class="toolbox-fab" id="toolboxFab">
   <button class="fab-button" aria-label="Toolbox" aria-expanded="false" id="fabButton">
     <Icon name="lucide:briefcase" width="24" height="24" />
@@ -194,14 +188,6 @@ const { Content } = await sayfa.render();
   .bolum-icerik a { color: var(--coral-koyu); font-weight: 500; }
   .bolum-icerik a:hover { color: var(--coral); }
   .bolum-icerik code { background: var(--bej-hover); padding: 2px 6px; border-radius: 3px; font-size: 14px; }
-
-  /* Markdown body */
-  .md-icerik { padding: 32px 0; font-size: 16px; color: var(--metin); line-height: 1.7; }
-  .md-icerik h2 { font-family: 'Source Serif 4', serif; font-size: 28px; margin: 32px 0 16px; }
-  .md-icerik h3 { font-family: 'Source Serif 4', serif; font-size: 20px; margin: 24px 0 12px; }
-  .md-icerik p { margin-bottom: 16px; }
-  .md-icerik ul, .md-icerik ol { margin: 12px 0 16px 24px; }
-  .md-icerik a { color: var(--coral-koyu); font-weight: 500; }
 
   /* META */
   .meta { padding: 32px 0; border-top: 1px solid var(--cizgi); font-size: 14px; color: var(--metin-soluk); }
