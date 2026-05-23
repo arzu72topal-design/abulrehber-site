@@ -11,6 +11,16 @@ function vurguClass(vurgu) {
   if (vurgu === 'yatay') return 'kart-yatay';
   return 'kart-birincil';
 }
+
+// Toolbox eyebrow — toolboxAtfi yolundan başlığı çıkarır
+// /toolbox/belge-evrak[#anchor] → "Belge ve evrak"
+// /toolbox/hukuki-yardim[#anchor] → "Hukuki yardım"
+function toolboxEyebrow(atfi) {
+  if (!atfi) return 'Toolbox';
+  if (atfi.includes('hukuki-yardim')) return 'Hukuki yardım';
+  if (atfi.includes('belge-evrak')) return 'Belge ve evrak';
+  return 'Toolbox';
+}
 ---
 
 <!DOCTYPE html>
@@ -107,7 +117,7 @@ function vurguClass(vurgu) {
                   return (
                     <a href={href} class={`kart ${vurguClass(k.vurgu)}`}>
                       {isYatay && k.toolboxAtfi && (
-                        <div class="kart-toolbox-eyebrow">Toolbox &rsaquo; Belge ve evrak</div>
+                        <div class="kart-toolbox-eyebrow">Toolbox &rsaquo; {toolboxEyebrow(k.toolboxAtfi)}</div>
                       )}
                       <div class="kart-icerik">
                         <div class="kart-ikon">
