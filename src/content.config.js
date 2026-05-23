@@ -1,21 +1,31 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Tek bir kanal kartı şeması
+// Vurgu enum — V3 karar ağacı çıktısı
+// birincil: ✅ ana yetkili kurum
+// ikincil:  🔵 paralel/ek yetkili
+// yatay:    🟡 Toolbox ana ev + dikey çapraz
+const kanalKartiVurgu = z.enum(['birincil', 'ikincil', 'yatay']);
+
+// Tek bir kanal kartı şeması — V3 alanlarıyla genişletildi
 const kanalKarti = z.object({
   ikon: z.string(),
   baslik: z.string(),
   tip: z.string(),
   ulke_kodu: z.string().optional(),
   paralel: z.boolean().optional(),
-  vurgu: z.string(),
+  // Eski vurgu (string) ve yeni vurgu (enum) birlikte yaşar — geri uyum
+  vurgu: z.union([kanalKartiVurgu, z.string()]),
   aciklama: z.string(),
   link: z.string().optional(),
   not: z.string().optional(),
+  // V3 yeni alanları (hepsi opsiyonel)
+  cardId: z.string().optional(),
+  toolboxAtfi: z.string().optional(),
+  detayliKart: z.string().optional(),
 });
 
 // Bir kanal grubu (01 Resmi yol, 02 Profesyonel, 03 STK)
-// kartlar artık optional — "ağ dar" durumlarda sadece intro narrative ile çalışır
 const kanalGrubu = z.object({
   numara: z.string(),
   baslik: z.string(),
@@ -24,21 +34,19 @@ const kanalGrubu = z.object({
   kartlar: z.array(kanalKarti).optional(),
 });
 
-// Tek bir bilgi notu (ülke bloğu içinde birden fazla olabilir)
+// Tek bir bilgi notu
 const bilgiNotu = z.object({
   baslik: z.string(),
   metin: z.string(),
 });
 
 // Bir ülke bloğu (TR, DE, vb.)
-// gruplar artık optional — Phase 2 iskelet ülkeleri için sadece intro ile çalışır
-// bilgi_notlari yeni array alanı; eski tek-alan formu (bilgi_notu_baslik/metin) geri uyumluluk için korunur
 const ulkeBlogu = z.object({
   kod: z.string(),
   bayrak: z.string(),
   ad: z.string(),
   intro: z.string(),
-  // Eski format (pilot calisma-emeklilik.md için geri uyumlu)
+  // Eski format (geri uyumlu)
   bilgi_notu_baslik: z.string().optional(),
   bilgi_notu_metin: z.string().optional(),
   // Yeni format — birden fazla bilgi notu desteği
@@ -55,7 +63,7 @@ const ilgiliKonu = z.object({
   link: z.string(),
 });
 
-// Kurum kartı koleksiyonu (mevcut)
+// Kurum kartı koleksiyonu
 const kurumlar = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/kurumlar' }),
   schema: z.object({
@@ -67,10 +75,12 @@ const kurumlar = defineCollection({
     bir_sonraki_kontrol: z.date(),
     versiyon: z.string(),
     kaynak: z.string().optional(),
+    // V3 stale kart desteği
+    durum: z.enum(['yazili', 'yazilacak', 'taslak']).default('yazili'),
   }),
 });
 
-// Konu sayfası koleksiyonu — genişletilmiş schema
+// Konu sayfası koleksiyonu
 const konular = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/konular' }),
   schema: z.object({
@@ -80,7 +90,6 @@ const konular = defineCollection({
     bir_sonraki_kontrol: z.date(),
     versiyon: z.string(),
     acil_uyari: z.string().optional(),
-    // Yeni alanlar — A3 formatı için, hepsi optional
     eyebrow: z.string().optional(),
     lead: z.string().optional(),
     secici_etiket: z.string().optional(),
@@ -92,7 +101,7 @@ const konular = defineCollection({
   }),
 });
 
-// Toolbox koleksiyonu
+// Toolbox koleksiyonu — V3 genişletmesi
 const toolbox = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/toolbox' }),
   schema: z.object({
@@ -100,6 +109,15 @@ const toolbox = defineCollection({
     son_kontrol: z.date(),
     bir_sonraki_kontrol: z.date(),
     versiyon: z.string(),
+    // V3 yeni alanları
+    eyebrow: z.string().optional(),
+    lead: z.string().optional(),
+    bolumler: z.array(z.object({
+      id: z.string(),       // anchor target (#apostil, #vekaletname, vb.)
+      baslik: z.string(),
+      icerik: z.string(),   // markdown gövdesi
+    })).optional(),
+    son_not: z.string().optional(),
   }),
 });
 
