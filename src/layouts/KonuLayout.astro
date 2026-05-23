@@ -231,7 +231,7 @@ function badgeClass(tip) {
     <span class="ft-alt"> · Hukuki yardım, belge ve evrak</span>
     <div class="ft-arrow"></div>
   </div>
-  <button class="fab-button" id="fab-button" aria-label="Toolbox: Hukuki yardım ve belge işlemleri" aria-expanded="false">
+  <button type="button" class="fab-button" id="fab-button" aria-label="Toolbox: Hukuki yardım ve belge işlemleri" aria-expanded="false">
     <Icon name="lucide:briefcase" width="22" height="22" />
     <span class="fab-indicator" id="fab-indicator" aria-hidden="true"></span>
   </button>
@@ -248,45 +248,40 @@ function badgeClass(tip) {
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // FAB toggle
-    const fabContainer = document.getElementById('toolbox-fab');
-    const fabButton = document.getElementById('fab-button');
-    const fabTooltip = document.getElementById('fab-tooltip');
-    const fabIndicator = document.getElementById('fab-indicator');
-    if (fabContainer && fabButton) {
-      fabButton.addEventListener('click', (e) => {
+<script is:inline>
+  (function () {
+    function initFab() {
+      const fabContainer = document.getElementById('toolbox-fab');
+      const fabButton = document.getElementById('fab-button');
+      const fabTooltip = document.getElementById('fab-tooltip');
+      const fabIndicator = document.getElementById('fab-indicator');
+      if (!fabContainer || !fabButton) return;
+
+      fabButton.addEventListener('click', function (e) {
+        e.preventDefault();
         e.stopPropagation();
         const isOpen = fabContainer.classList.toggle('open');
         fabButton.setAttribute('aria-expanded', String(isOpen));
-        // İlk açılıştan sonra indicator + pulse sönsün
         if (isOpen && fabIndicator) {
           fabContainer.classList.add('seen');
         }
       });
-      // Hover tooltip
+
       if (fabTooltip) {
-        fabButton.addEventListener('mouseenter', () => {
-          fabContainer.classList.add('tooltip-shown');
-        });
-        fabButton.addEventListener('mouseleave', () => {
-          fabContainer.classList.remove('tooltip-shown');
-        });
-        fabButton.addEventListener('focus', () => {
-          fabContainer.classList.add('tooltip-shown');
-        });
-        fabButton.addEventListener('blur', () => {
-          fabContainer.classList.remove('tooltip-shown');
-        });
+        fabButton.addEventListener('mouseenter', function () { fabContainer.classList.add('tooltip-shown'); });
+        fabButton.addEventListener('mouseleave', function () { fabContainer.classList.remove('tooltip-shown'); });
+        fabButton.addEventListener('focus', function () { fabContainer.classList.add('tooltip-shown'); });
+        fabButton.addEventListener('blur', function () { fabContainer.classList.remove('tooltip-shown'); });
       }
-      document.addEventListener('click', (e) => {
+
+      document.addEventListener('click', function (e) {
         if (!fabContainer.contains(e.target)) {
           fabContainer.classList.remove('open');
           fabButton.setAttribute('aria-expanded', 'false');
         }
       });
-      document.addEventListener('keydown', (e) => {
+
+      document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           fabContainer.classList.remove('open');
           fabButton.setAttribute('aria-expanded', 'false');
@@ -294,23 +289,33 @@ function badgeClass(tip) {
       });
     }
 
-    // Sticky country pill — aktif ülke scroll sırasında güncellenir
-    const pills = document.querySelectorAll('.secici-pill');
-    const ulkeBloklar = document.querySelectorAll('.ulke-blok');
-    if (pills.length && ulkeBloklar.length && 'IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+    function initCountryPills() {
+      const pills = document.querySelectorAll('.secici-pill');
+      const ulkeBloklar = document.querySelectorAll('.ulke-blok');
+      if (!pills.length || !ulkeBloklar.length || !('IntersectionObserver' in window)) return;
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             const id = entry.target.id;
-            pills.forEach((p) => {
+            pills.forEach(function (p) {
               p.classList.toggle('aktif', p.getAttribute('href') === '#' + id);
             });
           }
         });
       }, { rootMargin: '-30% 0px -60% 0px' });
-      ulkeBloklar.forEach((blok) => observer.observe(blok));
+      ulkeBloklar.forEach(function (blok) { observer.observe(blok); });
     }
-  });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        initFab();
+        initCountryPills();
+      });
+    } else {
+      initFab();
+      initCountryPills();
+    }
+  })();
 </script>
 
 <style>
@@ -447,13 +452,14 @@ function badgeClass(tip) {
   .ulke-blok {
     padding: 56px 0;
     border-bottom: 1px solid var(--kenar-soft);
-    scroll-margin-top: 160px;
+    scroll-margin-top: 260px;
   }
   .ulke-baslik {
     font-family: 'Source Serif 4', Georgia, serif;
     font-size: 32px; font-weight: 700;
     color: var(--amber-derin); line-height: 1.2;
     margin-bottom: 16px;
+    scroll-margin-top: 260px;
   }
   .ulke-intro {
     font-size: 16px; color: var(--metin-orta);
