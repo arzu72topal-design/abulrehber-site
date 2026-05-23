@@ -46,7 +46,8 @@ ulkeler:
             tip: "Resmi"
             ulke_kodu: "TR"
             paralel: true
-            vurgu: "Türkiye'den yurt dışına gönderilecek belgelerde"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
             aciklama: "Türkiye'den alınan nüfus kayıt örneği, vukuatlı nüfus kaydı, adli sicil kaydı, askerlik durum belgesi gibi belgeler yurt dışı vatandaşlık başvurusunda kullanılacaksa Valilik (idari belgeler) veya Adliye (adli belgeler) apostiliyle çıkarılır. Adli sicil kaydı için e-Apostil sistemi mevcut."
 
       - numara: "02"
@@ -58,7 +59,8 @@ ulkeler:
             baslik: "Türkiye Barolar Birliği ve il baroları"
             tip: "Profesyonel"
             ulke_kodu: "TR"
-            vurgu: "Avukat sicil sorgu, Adli Yardım"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/hukuki-yardim#avukat-bulma-turkiye"
             aciklama: "Türk vatandaşlığı reddedilmesi halinde Türkiye'de İdare Mahkemesi'nde iptal davası açılabilir; bu süreçte idare hukukunda uzman bir avukat aramak için TBB veya yaşadığınız ilin barosu. Maddi durum uygunsa baronun Adli Yardım Bürosu üzerinden ücretsiz avukat tahsisi mümkün. Yurt dışında yaşayanlar için Adli Yardım ikamet şartı bakımından sınırlıdır — konsolosluk üzerinden yönlendirme alternatiftir."
             not: "Avukat bulma kanalları için Toolbox > Hukuki yardım."
           - ikon: "file-signature"
@@ -66,7 +68,8 @@ ulkeler:
             tip: "Profesyonel"
             ulke_kodu: "TR"
             paralel: true
-            vurgu: "Belge tasdiği, vekaletname"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
             aciklama: "Türkiye'deki yakına veya avukata vatandaşlık dosyası takibi için vekaletname düzenlenmesi noter veya konsolosluk işidir. Vatandaşlık dosyasında karşı tarafa resmi uyarı gönderilmesi gereken durumlarda noter ihtarnamesi kullanılır. Yurt dışındaysanız Türk konsolosluğu da bu işlemleri yapar."
 
       - numara: "03"
@@ -165,21 +168,73 @@ ulkeler:
     bayrak: "🇦🇹"
     ad: "Avusturya"
     intro: "Otorite: BMI Avusturya (Staatsbürgerschaftsverband — eyalet düzeyinde, Magistrat / Bezirkshauptmannschaft). Belge zinciri: Apostil makamları BMEIA + Landesgericht. Hukuki destek: ÖRAK (baro), Verfahrenshilfe (devlet hukuki yardım). STK: Migrant.at, Caritas Österreich. Yapısal özellik: Avusturya çoklu vatandaşlığa sınırlı yaklaşır — kural olarak başvurudan önce eski vatandaşlıktan çıkma istenir; belirli istisnalar mevcut (ikinci kuşak, özel başarı, eşlik vakaları)."
+    gruplar:
+      - numara: "01"
+        baslik: "Resmi yol"
+        alt_baslik: "Belge zinciri"
+        intro: "Türk vatandaşlık dosyasında Avusturya tarafından düzenlenmiş belgelerin (Aufenthaltstitel, Staatsbürgerschaftsnachweis, doğum/evlilik belgesi) Türkiye'ye iletilmesi apostil zinciri gerektirir. Avusturya'da apostil tek makamda toplanmaz; belge türü hangi makamı yetkili kıldığını belirler."
+        kartlar:
+          - ikon: "stamp"
+            baslik: "Apostille — Avusturya"
+            tip: "Resmi"
+            ulke_kodu: "AT"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/belge-evrak#avusturya"
+            aciklama: "Avusturya'da apostil parçalı yapı ile işler: BMEIA Büro für Konsularbeglaubigungen (yurt dışı kullanım için merkezi yön gösterme), Landeshauptmann (doğum, evlilik, vatandaşlık gibi idari belgeler), Landesgerichte Präsidenten (adli, savcılık, noter, baro belgeleri), Landesregierungen (eyalet idari belgeleri), bestimmte Bezirksgerichte (özel hukuk belgeleri). Vatandaşlık başvurusunda kullanılacak doğum, evlilik, Staatsbürgerschaftsnachweis tipik olarak Landeshauptmann üzerinden apostille edilir. e-Apostille sistemi 2017'den itibaren mevcut; hedef ülkenin kabul edip etmediği ön kontrol gerektirir."
 
   - kod: "NL"
     bayrak: "🇳🇱"
     ad: "Hollanda"
     intro: "Otorite: IND (Immigratie- en Naturalisatiedienst) karar mercii, Gemeente (belediye) başvuru noktası. Belge zinciri: Rechtbank apostili. Hukuki destek: NOvA (baro), Het Juridisch Loket (ücretsiz danışma), Toevoeging (avukat masraf yardımı). STK: VluchtelingenWerk Nederland, gemeente-bazlı entegrasyon. Yapısal özellik: Hollanda prensip olarak çoklu vatandaşlığa sınırlı yaklaşır; Türk vatandaşları için belirli istisnalar var (eşlik vakaları, doğumla pasif edinim)."
+    gruplar:
+      - numara: "01"
+        baslik: "Resmi yol"
+        alt_baslik: "Belge zinciri"
+        intro: "Türk vatandaşlık dosyasında kullanılacak Hollanda belgelerinin (geboorteakte, huwelijksakte, uittreksel BRP, IND kararı) Türkiye'ye iletilmesi iki katmanlı pipeline ile işler — önce ön legalizasyon (belge türüne göre), sonra rechtbank apostili."
+        kartlar:
+          - ikon: "stamp"
+            baslik: "Apostille — Hollanda"
+            tip: "Resmi"
+            ulke_kodu: "NL"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/belge-evrak#hollanda"
+            aciklama: "Hollanda'da apostil iki katmanlı yapı ile işler: (1) Ön legalizasyon — belge türüne göre değişen ön tasdik makamı (gemeente burgerlijke stand belgelerine doğrudan, notaris notariële akte için, DUO diploma için, Belastingdienst vergi belgesi için). (2) Apostil katmanı — 11 rechtbank arasından seçim serbest, tüm Centrale Balie'ler aynı 27 € (2026) ücretle apostil verir. Burgerlijke stand belgeleri doğrudan rechtbank'a iletilir, ek ön legalizasyon gerekmez. Hollanda kendi e-Apostille çıkarmaz, sadece kâğıt sticker verir; yabancı e-Apostille'leri tanır."
 
   - kod: "FI"
     bayrak: "🇫🇮"
     ad: "Finlandiya"
     intro: "Otorite: Migri (Maahanmuuttovirasto) karar mercii, DVV (Digital and Population Data Services Agency) nüfus kaydı. Hukuki destek: Asianajavaliitto (baro), Oikeusapu (devlet hukuki yardım). STK: Familia ry, Monika-Naiset Liitto. Yapısal özellik: Finlandiya 2003'ten itibaren çoklu vatandaşlığa açık — eski vatandaşlığı koruyarak Fin vatandaşlığı alınabilir."
+    gruplar:
+      - numara: "01"
+        baslik: "Resmi yol"
+        alt_baslik: "Belge zinciri ve nüfus kayıt"
+        intro: "Finlandiya'da nüfus kayıt ve apostil tek federal makam altında birleşik — Avusturya ve Hollanda'nın parçalı yapısının tersine. DVV (Digi- ja väestötietovirasto) hem doğum, evlilik, medeni durum belgelerini düzenler hem de bunlara apostil ekler."
+        kartlar:
+          - ikon: "stamp"
+            baslik: "DVV — Apostille ve nüfus kayıt"
+            tip: "Resmi"
+            ulke_kodu: "FI"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/belge-evrak#finlandiya"
+            aciklama: "DVV (Digi- ja väestötietovirasto) Finlandiya'da apostil tasdiki için tek federal makam ve aynı zamanda nüfus kayıt + julkinen notaari (kamu noteri) görev alanına sahip. Türk vatandaşlık dosyasında kullanılacak Fin doğum belgesi (syntymätodistus), evlilik belgesi (vihkitodistus), medeni durum belgesi (siviilisäätytodistus) DVV'den hem alınır hem apostille edilir. Apostil ücreti 38 €/belge. Self-service portali (omat.todistukset.dvv.fi) Suomi.fi vahva tunnistautuminen gerektirir — yurt dışı sakini için pratik kısıt; alternatif olarak ajanvaraus ile kişisel ziyaret veya posta. Yabancı belgeler için apostil DVV'den alınmaz — her ülke yalnızca kendi belgelerini apostilleyebilir."
 
   - kod: "FR"
     bayrak: "🇫🇷"
     ad: "Fransa"
     intro: "Otorite: ikamet yoluyla başvuruda Préfecture, soy veya bildirim yoluyla SDANF (Sous-direction de l'accès à la nationalité française — Rezé). Belge zinciri: Cour d'Appel apostili. Hukuki destek: CNB (baro), Aide juridictionnelle (devlet hukuki yardım). STK: GISTI, La Cimade. Yapısal özellik: Fransa çoklu vatandaşlığa açıktır — eski vatandaşlık korunarak Fransız vatandaşlığı alınabilir."
+    gruplar:
+      - numara: "01"
+        baslik: "Resmi yol"
+        alt_baslik: "Belge zinciri"
+        intro: "Türk vatandaşlık dosyasında kullanılacak Fransa belgelerinin (acte de naissance, acte de mariage, certificat de nationalité française) Türkiye'ye iletilmesi apostil zinciri gerektirir. Fransa apostil sistemi 1 Mayıs 2025 reformuyla notarial sisteme geçti — eski Cour d'appel parquet général uygulaması artık geçerli değil; web'deki çoğu eski rehber bu açıdan güncellenmemiş durumda."
+        kartlar:
+          - ikon: "stamp"
+            baslik: "Apostille — Fransa (notarial, 2025 reformu)"
+            tip: "Resmi"
+            ulke_kodu: "FR"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/belge-evrak#fransa"
+            aciklama: "Fransa apostil sistemi 1 Mayıs 2025'ten itibaren notarial sisteme geçti (Décret n° 2024-1200 du 23 décembre 2024). Yetki 15 Conseil régional / Chambre interdépartementale de notaires arasında dağıtık, **coğrafi yetki kalktı — başvuru sahibi istediği centre'a başvurabilir**. Ulusal başvuru platformu apostille.notaires.fr; ulusal hat 0800 711 102 (numéro vert, Pzt-Cum 08:30-18:00). Reform öncesi 2-3 hafta süren işlem reform sonrası 3 iş günü hedefiyle işliyor. Belge türüne göre ön legalizasyon ayrı katman: mairie (copie certifiée conforme), notaire (acte notarié, procuration), école/université (diplôme), préfecture (casier judiciaire) — bu zincir tamamlandıktan sonra notarial apostille."
 
   - kod: "GR"
     bayrak: "🇬🇷"
