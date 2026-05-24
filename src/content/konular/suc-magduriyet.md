@@ -1,3 +1,4 @@
+[suc-magduriyet (2).md](https://github.com/user-attachments/files/28187191/suc-magduriyet.2.md)
 ---
 baslik: "Suç ve mağduriyet"
 konu_no: 10
@@ -221,7 +222,65 @@ ulkeler:
   - kod: "FI"
     bayrak: "🇫🇮"
     ad: "Finlandiya"
-    intro: "Finlandiya'da suça maruz kaldıysanız Poliisi suç duyurusunu (rikosilmoitus) alır. Mağdur desteği için RIKU (Rikosuhripäivystys), Adalet Bakanlığı yetkilendirmesiyle çalışan merkezi STK — 116 006 hattı, Victim Support Europe üyesi. RIKU'nun mevcut yetkilendirme döneminin 2027 sonrası durumu için resmi kaynaktan (FI Adalet Bakanlığı) teyit gerekli. Avukat aramak için Asianajajaliitto portalı; düşük gelirliler için Oikeusapu (devlet hukuki yardım sistemi). Türk vatandaşı için Türk konsolosluğu Helsinki köprü kurumdur. Bu ülke için tam içerik Phase 2'de yazılacak."
+    intro: "Finlandiya'da suça maruz kaldıysanız Poliisi suç duyurusunu (rikosilmoitus) alır; soruşturmayı yine Poliisi yürütür, kovuşturma kararını Syyttäjälaitos (savcılık) verir, dava käräjäoikeus (alt mahkeme) ve hovioikeus (istinaf) sistemiyle ilerler. Mağdur desteği için RIKU (Rikosuhripäivystys) merkezi STK — Adalet Bakanlığı yetkilendirmesiyle çalışan, 116 006 Avrupa düzeyinde mağdur hattını işleten, Victim Support Europe üyesi. Düşük gelirliler için Oikeusapu (devlet hukuki yardım sistemi) hem danışmanlık hem dava temsilini tek mekanizmada birleştirir — Almanya'daki ikili Beratungshilfe + PKH yapısının aksine. Türk vatandaşı için Türk konsolosluğu Helsinki belge köprüsü ve sınır ötesi suç vakalarında prosedürel destek."
+    gruplar:
+      - numara: "01"
+        baslik: "Resmi yol"
+        alt_baslik: "Devlet kurumlarına başvuru"
+        intro: "Finlandiya'da suç soruşturması Poliisi tarafından yürütülür; kovuşturma kararı Syyttäjälaitos'a (savcılık) aittir. Almanya'daki Polizei + Staatsanwaltschaft iki katmanlı yapısından farklı olarak Finlandiya'da soruşturma katmanı tek elden işler. Sınır ötesi vakalarda Türk konsolosluğu Helsinki üzerinden Türkiye'ye paralel başvuru kanalı açıktır (Türkiye sekmesindeki TCK m. 13 Bilgi notuna bakın)."
+        kartlar:
+          - ikon: "shield-alert"
+            baslik: "Poliisi"
+            tip: "Resmi"
+            ulke_kodu: "FI"
+            vurgu: "Finlandiya'da suç duyurusunu alan ve soruşturmayı yürüten kurum"
+            aciklama: "Suç duyurusu (rikosilmoitus) online portal (poliisi.fi veya kerropoliisille.fi) üzerinden veya en yakın polis karakoluna başvurularak verilir. Soruşturmayı Poliisi yürütür, kovuşturma kararını Syyttäjälaitos verir. Acil durumda 112 (genel acil hat). Aile içi şiddet ve cinsel saldırı vakaları için uzmanlaşmış birimler mevcut. Sisäministeriö (İçişleri Bakanlığı) çatısında çalışır."
+            link: "https://poliisi.fi"
+            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 2"
+
+          - ikon: "globe"
+            baslik: "Türk konsoloslukları — Helsinki"
+            tip: "Resmi"
+            ulke_kodu: "FI"
+            vurgu: "Sınır ötesi prosedürel köprü ve Türk vatandaşı koordinasyonu"
+            aciklama: "Suç mağduru Türk vatandaşı için prosedürel köprü — vekaletname düzenleme, suç duyurusu dilekçesi iletim, Türkiye'deki yetkili makamlara bildirim. Sınır ötesi vakalarda (TCK m. 13 çerçevesinde Türk yargı yetkisi paralel olduğunda) iletim kanalı. Aile içi şiddet vakalarında geri dönüş koordinasyonu. Konsolosluk hukuki tavsiye vermez; rolü prosedüreldir."
+            link: "https://www.konsolosluk.gov.tr"
+            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 2"
+
+      - numara: "02"
+        baslik: "Profesyonel destek"
+        alt_baslik: "Avukat ve hukuki yardım"
+        intro: "Suç mağduru olarak müdahillik (asianomistajan oikeudet — Almanya Nebenklage muadili) veya tazminat takibinde avukat pratik gereklilik. Düşük gelirliler için Oikeusapu hem mahkeme öncesi danışmanlık hem mahkeme aşaması temsilini tek mekanizmada birleştirir (Avusturya Verfahrenshilfe modeline benzer)."
+        kartlar:
+          - ikon: "scale"
+            baslik: "Asianajajaliitto (Suomen Asianajajaliitto)"
+            tip: "Profesyonel"
+            ulke_kodu: "FI"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/hukuki-yardim#finlandiya"
+            aciklama: "Finlandiya Avukat Birliği — uzmanlık alanı, dil ve şehir filtresiyle avukat arama portalı. Suç mağduru olarak müdahillik veya tazminat takibi için ceza hukukunda deneyimli avukat bulma kanalı. Sadece üye avukatlar 'asianajaja' unvanını kullanabilir — başvuru öncesi sicil doğrulama temel koruma. Disiplin şikayeti için de aynı kanal. Genel avukat bulma rehberi Toolbox'ta."
+
+          - ikon: "scroll"
+            baslik: "Oikeusapu (devlet hukuki yardım)"
+            tip: "Ücretsiz"
+            ulke_kodu: "FI"
+            vurgu: "yatay"
+            toolboxAtfi: "/toolbox/hukuki-yardim#finlandiya"
+            aciklama: "Gelir koşullu devlet hukuki yardım — ücretsiz veya kısmi ücretle hukuki danışmanlık ve dava temsili. Mahkeme öncesi danışmanlık + mahkeme aşaması avukat masrafı tek mekanizmada birleşir. Suç mağduru olarak müdahillik süreci veya tazminat takibinde kullanılabilir. Başvuru oikeusapu.fi üzerinden veya yerel Oikeusaputoimisto (hukuki yardım ofisi) aracılığıyla."
+
+      - numara: "03"
+        baslik: "STK ve mağdur desteği"
+        alt_baslik: "Yanınızda duran kuruluşlar"
+        intro: "Finlandiya'da suç mağduru desteği merkezi yapıdadır — RIKU (Rikosuhripäivystys) Adalet Bakanlığı yetkilendirmesiyle çalışan ana referans STK, 116 006 Avrupa hattını işletir. Almanya'daki Weisser Ring paterni — tek merkezi mağdur destek STK'sı."
+        kartlar:
+          - ikon: "heart"
+            baslik: "RIKU (Rikosuhripäivystys)"
+            tip: "STK"
+            ulke_kodu: "FI"
+            vurgu: "Finlandiya'nın merkezi suç mağduru destek STK'sı"
+            aciklama: "Adalet Bakanlığı tarafından yetkilendirilmiş merkezi mağdur destek hattı (yetkilendirme dönemleri sürelidir — mevcut dönem ve sonraki için FI Adalet Bakanlığı kaynağından teyit edin). 116 006 hattı (Avrupa düzeyinde mağdur hattı), Victim Support Europe üyesi. Pratik destek: mahkemeye eşlik ve duruşma süreçlerinde refakat (asianajaja seçimi rehberliği), psikolojik destek, sürecin haritalanması, mağdur haklarının açıklanması. Hukuki temsil sağlamaz — bu Asianajajaliitto ve Oikeusapu kanalı."
+            link: "https://www.riku.fi"
+            not: "Detaylı kart: Phase 1.5'te yazılacak — Kol 2"
 
   - kod: "FR"
     bayrak: "🇫🇷"
