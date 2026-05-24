@@ -1,4 +1,3 @@
-[suc-magduriyet (2).md](https://github.com/user-attachments/files/28187191/suc-magduriyet.2.md)
 ---
 baslik: "Suç ve mağduriyet"
 konu_no: 10
