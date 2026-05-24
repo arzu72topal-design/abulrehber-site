@@ -29,7 +29,7 @@ ulkeler:
         alt_baslik: "Devlet kurumlarına başvuru"
         intro: "Türkiye'de yabancıların oturum izni dosyalarının karar makamı Göç İdaresi Başkanlığı (GİB) ve illerdeki Göç İdaresi İl Müdürlükleri'dir. Vize başvurusu yurt dışındaki Türk konsolosluğuna; ikamet izni Türkiye'de Göç İdaresi'ne; çalışma izni Çalışma ve Sosyal Güvenlik Bakanlığı'na."
         kartlar:
-          - ikon: "building-bank"
+          - ikon: "landmark"
             baslik: "Göç İdaresi Başkanlığı (GİB)"
             tip: "Resmi"
             ulke_kodu: "TR"
@@ -104,7 +104,7 @@ ulkeler:
         alt_baslik: "Devlet kurumlarına başvuru"
         intro: "Almanya'da oturum izni başvuruları Ausländerbehörde'ye yapılır — şehir ve eyalet bazlı değişen yapı. Yurt dışından Almanya'ya ilk girişte vize başvurusu için ülkenizdeki Alman Büyükelçiliği veya Başkonsolosluk. Aile birleşimi başvurularında çoğunlukla iki katmanlı süreç: yurt dışı temsilciliğinde vize başvurusu + Almanya'daki Ausländerbehörde'nin önceden onayı."
         kartlar:
-          - ikon: "building-bank"
+          - ikon: "landmark"
             baslik: "Ausländerbehörde"
             tip: "Resmi"
             ulke_kodu: "DE"
@@ -202,7 +202,7 @@ ulkeler:
         alt_baslik: "Devlet kurumlarına başvuru"
         intro: "Finlandiya'da oturum izni süreçleri Migri'de yürür; nüfus kaydı yerleşim sonrası DVV'de tamamlanır. Yurt dışından vize başvurusu Finlandiya'nın yabancı temsilciliklerinde."
         kartlar:
-          - ikon: "building-bank"
+          - ikon: "landmark"
             baslik: "Migri (Maahanmuuttovirasto)"
             tip: "Resmi"
             ulke_kodu: "FI"
