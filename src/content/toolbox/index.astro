@@ -1,0 +1,603 @@
+---
+// Anasayfa — Abul Rehber
+// Manifesto v1 sesi + Anadolu Terracotta paleti (#FAEEDA / #D85A30 / #993C1D / #633806)
+// Konu grid + ülke filtrelemesi + manifesto bloğu + Toolbox FAB
+
+import { Icon } from 'astro-icon/components';
+
+// 13 konu — ikon + slug + ad + 1 satır açıklama
+// İkonlar canlı havuzdan seçildi, build-tested
+const konular = [
+  { slug: 'vatandaslik', ikon: 'id-card', ad: 'Vatandaşlık',
+    aciklama: 'Türk vatandaşlığı, çift vatandaşlık, yurt dışında doğan çocuğun Türk nüfusuna tescili.' },
+  { slug: 'vize-oturum', ikon: 'globe', ad: 'Vize ve oturum',
+    aciklama: 'Vize başvurusu, oturma izni, OKK 1/80 kazanılmış haklar, daimi oturma statüsü.' },
+  { slug: 'miras', ikon: 'file-signature', ad: 'Miras',
+    aciklama: 'Yurt dışı miras, paralel hukuk sistemleri, mirasçılık belgesi ve intikal süreci.' },
+  { slug: 'evlilik-bosanma', ikon: 'heart-handshake', ad: 'Evlilik ve boşanma',
+    aciklama: 'Yurt dışı evliliğin tescili, boşanma kararı idari tanıma, mal rejimi ve nafaka.' },
+  { slug: 'cocuk', ikon: 'baby', ad: 'Çocuk',
+    aciklama: 'Velayet ve görüşme hakkı, sınır ötesi çocuk kaçırma, çocuk koruma kanalları.' },
+  { slug: 'mulk-gayrimenkul', ikon: 'key', ad: 'Mülk ve gayrimenkul',
+    aciklama: 'Sınır ötesi tapu intikali, miras gayrimenkulü, kira ve satış uyuşmazlıkları.' },
+  { slug: 'calisma-emeklilik', ikon: 'hand-coins', ad: 'Çalışma ve emeklilik',
+    aciklama: 'Sosyal güvenlik primleri, yurt dışı borçlanma, hizmet birleştirme, iki ülke emekliliği.' },
+  { slug: 'vergi', ikon: 'calculator', ad: 'Vergi',
+    aciklama: 'Çifte vergilendirme önleme anlaşmaları, mukimlik, beyan ve af süreçleri.' },
+  { slug: 'egitim-diploma', ikon: 'graduation-cap', ad: 'Eğitim ve diploma',
+    aciklama: 'Diploma tanıma ve denklik, düzenlenmiş meslek tanıma, çocuk için okul yerleştirme.' },
+  { slug: 'suc-magduriyet', ikon: 'shield-alert', ad: 'Suç ve mağduriyet',
+    aciklama: 'Suç duyurusu, müşteki sıfatıyla yargılamaya katılım, mağdur destek kanalları.' },
+  { slug: 'saglik-sigorta', ikon: 'heart-pulse', ad: 'Sağlık ve sigorta',
+    aciklama: 'GSS, GKV ve PKV, sınır ötesi sağlık hakkı, özel sigorta uyuşmazlık çözümü.' },
+  { slug: 'finans-bankacilik', ikon: 'banknote', ad: 'Finans ve bankacılık',
+    aciklama: 'Banka uyuşmazlığı, FATCA/CRS, döviz işlemleri, kredi ve Schufa süreçleri.' },
+  { slug: 'acil-durumlar', ikon: 'shield', ad: 'Acil durumlar',
+    aciklama: 'Kriz anında ilk numara, gözaltı bildirim hakkı, pasaport kaybı ve yurt dışı yardım.' },
+];
+
+// 9 ülke — bayrak + ad + faz durumu
+// Phase durumu: tam = TR/DE (her konuda tam içerik)
+//               phase2 = FI/AT/NL/FR (iskeletten tam içeriğe geçiş bekleniyor)
+//               phase3 = GR/PT/ES (sonraki dalga)
+const ulkeler = [
+  { kod: 'TR', bayrak: '🇹🇷', ad: 'Türkiye', durum: 'tam', etiket: 'Tam içerik' },
+  { kod: 'DE', bayrak: '🇩🇪', ad: 'Almanya', durum: 'tam', etiket: 'Tam içerik' },
+  { kod: 'FI', bayrak: '🇫🇮', ad: 'Finlandiya', durum: 'phase2', etiket: 'Phase 2' },
+  { kod: 'AT', bayrak: '🇦🇹', ad: 'Avusturya', durum: 'phase2', etiket: 'Phase 2' },
+  { kod: 'NL', bayrak: '🇳🇱', ad: 'Hollanda', durum: 'phase2', etiket: 'Phase 2' },
+  { kod: 'FR', bayrak: '🇫🇷', ad: 'Fransa', durum: 'phase2', etiket: 'Phase 2' },
+  { kod: 'GR', bayrak: '🇬🇷', ad: 'Yunanistan', durum: 'phase3', etiket: 'Phase 3' },
+  { kod: 'PT', bayrak: '🇵🇹', ad: 'Portekiz', durum: 'phase3', etiket: 'Phase 3' },
+  { kod: 'ES', bayrak: '🇪🇸', ad: 'İspanya', durum: 'phase3', etiket: 'Phase 3' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abul Rehber — Türk diasporası için yasal ve bürokratik rehber</title>
+  <meta name="description" content="Yurt dışında yaşayan Türk vatandaşları için hukuki ve bürokratik süreçlerde başvurulabilecek kurum ve kuruluşları, başvuru kanallarını ve sınırlarını şeffaf biçimde gösteren kanal haritası." />
+  
+  <style>
+    :root {
+      --bg-krem: #FAEEDA;
+      --coral-400: #D85A30;
+      --coral-dark: #993C1D;
+      --coral-hover-bg: #FEF8F3;
+      --amber-800: #633806;
+      --amber-900: #5b2f0e;
+      --text-stone-700: #44403c;
+      --text-stone-600: #57534e;
+      --text-stone-500: #78716c;
+      --border-soft: #f0e0c8;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-krem);
+      color: var(--text-stone-700);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    
+    /* Top nav */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 238, 218, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .nav-brand {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--coral-dark);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: var(--text-stone-700);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.18s ease;
+    }
+    
+    .nav-links a:hover { color: var(--coral-dark); }
+    
+    @media (max-width: 640px) {
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 0.85rem; }
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Hero — sade, gradient/animasyon yok */
+    .hero {
+      padding: 72px 0 56px;
+    }
+    
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber-800);
+      margin-bottom: 22px;
+    }
+    
+    .hero-title {
+      font-size: clamp(2rem, 4.6vw, 3.2rem);
+      line-height: 1.12;
+      font-weight: 800;
+      color: var(--amber-900);
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 880px;
+    }
+    
+    .hero-lead {
+      font-size: 1.13rem;
+      line-height: 1.6;
+      color: var(--text-stone-700);
+      max-width: 760px;
+    }
+    
+    /* Section header (badge + başlık) */
+    .section {
+      padding: 56px 0;
+      border-top: 1px solid var(--border-soft);
+    }
+    
+    .section-badge {
+      display: inline-block;
+      padding: 5px 14px;
+      background: var(--coral-400);
+      color: white;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--amber-900);
+      letter-spacing: -0.015em;
+      margin-bottom: 16px;
+    }
+    
+    .section-intro {
+      font-size: 1.02rem;
+      color: var(--text-stone-600);
+      max-width: 720px;
+      margin-bottom: 36px;
+    }
+    
+    /* Konu grid */
+    .konu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    
+    .konu-kart {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      background: white;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      min-height: 168px;
+    }
+    
+    .konu-kart:hover {
+      border-color: var(--coral-400);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(216, 90, 48, 0.10);
+    }
+    
+    .konu-kart-ikon {
+      width: 36px;
+      height: 36px;
+      color: var(--coral-400);
+      margin-bottom: 14px;
+    }
+    
+    .konu-kart-ad {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--amber-900);
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    
+    .konu-kart-aciklama {
+      font-size: 0.91rem;
+      line-height: 1.55;
+      color: var(--text-stone-600);
+      flex-grow: 1;
+    }
+    
+    .konu-kart-durum {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-soft);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    
+    .konu-kart-durum.tam { color: var(--coral-dark); }
+    .konu-kart-durum.phase2 { color: var(--amber-800); opacity: 0.75; }
+    .konu-kart-durum.phase3 { color: var(--text-stone-500); }
+    .konu-kart-durum.hidden { display: none; }
+    
+    /* Ülke pill bar */
+    .ulke-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+      padding: 16px;
+      background: white;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+    }
+    
+    .ulke-bar-label {
+      width: 100%;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber-800);
+      margin-bottom: 4px;
+    }
+    
+    .ulke-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--bg-krem);
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-stone-700);
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    
+    .ulke-pill:hover {
+      background: var(--coral-hover-bg);
+      border-color: var(--coral-400);
+    }
+    
+    .ulke-pill.active {
+      background: var(--coral-400);
+      border-color: var(--coral-400);
+      color: white;
+    }
+    
+    .ulke-pill.tum {
+      background: white;
+    }
+    
+    .ulke-pill.tum.active {
+      background: var(--coral-dark);
+      border-color: var(--coral-dark);
+    }
+    
+    .ulke-pill .bayrak {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    
+    .ulke-pill .faz {
+      font-size: 0.72rem;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
+    
+    .ulke-pill.active .faz { opacity: 0.85; }
+    
+    /* Manifesto bloğu */
+    .manifesto-blok {
+      padding: 48px 32px;
+      background: white;
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    
+    .manifesto-blok p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-stone-700);
+      margin-bottom: 14px;
+    }
+    
+    .manifesto-blok p:last-child { margin-bottom: 0; }
+    
+    .manifesto-blok strong {
+      color: var(--coral-dark);
+      font-weight: 700;
+    }
+    
+    /* Toolbox FAB */
+    .toolbox-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      background: var(--coral-400);
+      color: white;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(216, 90, 48, 0.32);
+      transition: all 0.2s ease;
+    }
+    
+    .toolbox-fab:hover {
+      background: var(--coral-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(153, 60, 29, 0.35);
+    }
+    
+    .toolbox-fab-icon {
+      width: 18px;
+      height: 18px;
+    }
+    
+    @media (max-width: 560px) {
+      .toolbox-fab span { display: none; }
+      .toolbox-fab {
+        padding: 14px;
+        border-radius: 999px;
+      }
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 40px 0 60px;
+      border-top: 1px solid var(--border-soft);
+      margin-top: 56px;
+    }
+    
+    .footer-text {
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--text-stone-500);
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .footer-meta {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-stone-500);
+      margin-top: 14px;
+    }
+    
+    .footer-meta a {
+      color: var(--text-stone-500);
+      text-decoration: underline;
+      margin: 0 6px;
+    }
+    
+    .footer-meta a:hover { color: var(--coral-dark); }
+  </style>
+</head>
+
+<body>
+  <!-- Top nav -->
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">Abul Rehber</a>
+      <div class="nav-links">
+        <a href="#konular">Konular</a>
+        <a href="#ulkeler">Ülkeler</a>
+        <a href="/hakkimizda">Hakkımızda</a>
+        <a href="/yasal-bilgi">Yasal bilgi</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">Türk diasporası için yasal ve bürokratik rehber</span>
+      <h1 class="hero-title">Yurt dışı hukuki ve bürokratik süreçlerinizde hangi kuruma, hangi sırayla başvuracağınızı gösteriyoruz.</h1>
+      <p class="hero-lead">
+        Vatandaşlık, oturma izni, miras, evlilik, mülk, vergi, sosyal güvenlik — yurt dışında yaşayan bir Türk vatandaşı için karmaşık süreçlerin haritası. Her kurumun yetkisini, yetkisizliğini ve gerçek gücünü ayrıştırıyoruz; resmi kaynaklara doğrudan link veriyoruz.
+      </p>
+    </div>
+  </header>
+
+  <!-- Manifesto bloğu — Biz neyiz, neyiz değiliz -->
+  <section class="section">
+    <div class="container">
+      <span class="section-badge">Biz neyiz, neyiz değiliz</span>
+      <h2 class="section-title">Üç şey değiliz, bir şeyiz</h2>
+      <div class="manifesto-blok">
+        <p>
+          <strong>Devlet kurumu gibi konuşmuyoruz</strong> — onların dili insanı korkutur, bizim dilimiz rahatlatır.
+        </p>
+        <p>
+          <strong>Facebook grubu gibi de konuşmuyoruz</strong> — orası dağınık, biz yapılandırılmış.
+        </p>
+        <p>
+          <strong>Avukat sitesi gibi de konuşmuyoruz</strong> — onlar müşteri arar, biz yön gösteririz.
+        </p>
+        <p style="margin-top: 22px; font-style: italic; color: var(--text-stone-600);">
+          Bilgili ama insani. Sistematik ama soğuk değil. Sakin ama mesafeli değil. Yargısız ama gerçekçi. Kaos içinde netlik.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ülke filtresi + Konu grid -->
+  <section id="konular" class="section">
+    <div class="container">
+      <span class="section-badge">Konular</span>
+      <h2 class="section-title">13 başlık altında kanal haritası</h2>
+      <p class="section-intro">
+        Her başlık için Türkiye ve Almanya tarafında karar makamlarını, başvuru kanallarını, profesyonel destek ve sivil destek yapılarını ayrı ayrı gösteriyoruz. Ülke seçerek o ülke için durum etiketini her konu kartında görebilirsiniz.
+      </p>
+
+      <!-- Ülke filtre bar (id ulkeler de bunu işaret eder) -->
+      <div id="ulkeler" class="ulke-bar" role="tablist" aria-label="Ülke filtresi">
+        <span class="ulke-bar-label">Hangi ülke için</span>
+        <button class="ulke-pill tum active" data-ulke="tum" role="tab" aria-selected="true">
+          <span>Tümü</span>
+        </button>
+        {ulkeler.map(u => (
+          <button class="ulke-pill" data-ulke={u.kod} data-durum={u.durum} role="tab" aria-selected="false">
+            <span class="bayrak">{u.bayrak}</span>
+            <span>{u.ad}</span>
+          </button>
+        ))}
+      </div>
+
+      <!-- 13 konu grid -->
+      <div class="konu-grid">
+        {konular.map(k => (
+          <a href={`/konular/${k.slug}`} class="konu-kart">
+            <Icon name={`lucide:${k.ikon}`} class="konu-kart-ikon" />
+            <h3 class="konu-kart-ad">{k.ad}</h3>
+            <p class="konu-kart-aciklama">{k.aciklama}</p>
+            <div class="konu-kart-durum hidden" data-rol="durum-etiketi"></div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolbox FAB -->
+  <a href="/toolbox" class="toolbox-fab" aria-label="Toolbox — belge ve hukuki yardım">
+    <Icon name="lucide:briefcase" class="toolbox-fab-icon" />
+    <span>Toolbox</span>
+  </a>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        Abul Rehber bir avukatlık hizmeti değildir, bir bürokrasi haritasıdır. Bu sayfa rehber niteliğindedir; kişisel hukuki kararlar için yetkili bir hukukçuya danışın.
+      </p>
+      <p class="footer-meta">
+        © 2026 abulrehber.com
+        <a href="/hakkimizda">Hakkımızda</a>·
+        <a href="/yasal-bilgi">Yasal bilgi</a>·
+        <a href="/toolbox">Toolbox</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Ülke filtre etkileşimi — sade vanilla JS -->
+  <script is:inline>
+    (function() {
+      // Ülke ↔ konu içerik durumu eşleştirmesi
+      // tam → "Bu konuda tam içerik var"
+      // phase2 → "Bu ülke için iskelet — Phase 2'de tamamlanacak"
+      // phase3 → "Bu ülke için iskelet — Phase 3'te tamamlanacak"
+      // tum → durum gizli
+      
+      const etiketler = {
+        tam: 'Tam içerik mevcut',
+        phase2: 'İskelet — Phase 2 bekleniyor',
+        phase3: 'İskelet — Phase 3 bekleniyor',
+      };
+      
+      const pills = document.querySelectorAll('.ulke-pill');
+      const durumElementleri = document.querySelectorAll('[data-rol="durum-etiketi"]');
+      
+      function uygula(secilenUlke, secilenDurum) {
+        durumElementleri.forEach(el => {
+          if (secilenUlke === 'tum') {
+            el.classList.add('hidden');
+            el.textContent = '';
+            return;
+          }
+          // Konu kartı içinde — durumu ülke bazında gösteriyoruz
+          // 13 konunun her birinde aynı ülke durumu geçerli (tam içerik TR+DE; phase2/3 diğer 7 ülke)
+          el.classList.remove('hidden', 'tam', 'phase2', 'phase3');
+          el.classList.add(secilenDurum);
+          el.textContent = etiketler[secilenDurum] || '';
+        });
+      }
+      
+      pills.forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          e.preventDefault();
+          pills.forEach(p => {
+            p.classList.remove('active');
+            p.setAttribute('aria-selected', 'false');
+          });
+          pill.classList.add('active');
+          pill.setAttribute('aria-selected', 'true');
+          
+          const ulke = pill.dataset.ulke;
+          const durum = pill.dataset.durum || 'tum';
+          uygula(ulke, durum);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
