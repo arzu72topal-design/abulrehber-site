@@ -47,7 +47,7 @@ ulkeler:
             ulke_kodu: "TR"
             paralel: true
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
+            toolboxAtfi: "/toolbox/belge-evrak#apostil-turkiye"
             aciklama: "Türkiye'den alınan nüfus kayıt örneği, vukuatlı nüfus kaydı, adli sicil kaydı, askerlik durum belgesi gibi belgeler yurt dışı vatandaşlık başvurusunda kullanılacaksa Valilik (idari belgeler) veya Adliye (adli belgeler) apostiliyle çıkarılır. Adli sicil kaydı için e-Apostil sistemi mevcut."
 
       - numara: "02"
@@ -60,7 +60,7 @@ ulkeler:
             tip: "Profesyonel"
             ulke_kodu: "TR"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#avukat-bulma-turkiye"
+            toolboxAtfi: "/toolbox/hukuki-yardim#turkiye"
             aciklama: "Türk vatandaşlığı reddedilmesi halinde Türkiye'de İdare Mahkemesi'nde iptal davası açılabilir; bu süreçte idare hukukunda uzman bir avukat aramak için TBB veya yaşadığınız ilin barosu. Maddi durum uygunsa baronun Adli Yardım Bürosu üzerinden ücretsiz avukat tahsisi mümkün. Yurt dışında yaşayanlar için Adli Yardım ikamet şartı bakımından sınırlıdır — konsolosluk üzerinden yönlendirme alternatiftir."
             not: "Avukat bulma kanalları için Toolbox > Hukuki yardım."
           - ikon: "file-signature"
@@ -69,7 +69,7 @@ ulkeler:
             ulke_kodu: "TR"
             paralel: true
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
+            toolboxAtfi: "/toolbox/belge-evrak#noter-turkiye"
             aciklama: "Türkiye'deki yakına veya avukata vatandaşlık dosyası takibi için vekaletname düzenlenmesi noter veya konsolosluk işidir. Vatandaşlık dosyasında karşı tarafa resmi uyarı gönderilmesi gereken durumlarda noter ihtarnamesi kullanılır. Yurt dışındaysanız Türk konsolosluğu da bu işlemleri yapar."
 
       - numara: "03"
@@ -253,10 +253,10 @@ ulkeler:
 
 ilgili_konular:
   - ikon: "id-card"
-    baslik: "Oturma ve vize"
+    baslik: "Vize ve oturum"
     vurgu: "Vatandaşlığa giden yol"
     aciklama: "Alman vatandaşlığı için ön şart olan oturma izinleri (Aufenthaltserlaubnis, Niederlassungserlaubnis, Daueraufenthalt-EU), Mavi Kart AB, eş ve aile birleşimi — vatandaşlık öncesi süreç bu konuda işler."
-    link: "/konular/oturma-vize"
+    link: "/konular/vize-oturum"
   - ikon: "baby"
     baslik: "Çocuk"
     vurgu: "Doğum tescili ve ius soli"
