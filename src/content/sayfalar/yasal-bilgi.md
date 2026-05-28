@@ -60,7 +60,7 @@ Site dışı kurum sitelerine (mevzuat.gov.tr, vatandas.uyap.gov.tr, konsolosluk
 
 | | |
 |---|---|
-| Site sahibi | [Henüz belirlenmedi — site canlıya çıkmadan önce eklenecek] |
+| Site sahibi | İletişim üzerinden ulaşılabilir |
 | İletişim | iletisim@abulrehber.com |
 | Yayın türü | Genel bilgilendirme amaçlı statik içerik |
 
