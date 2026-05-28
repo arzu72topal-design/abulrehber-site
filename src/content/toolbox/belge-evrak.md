@@ -76,7 +76,7 @@ bolumler:
       <p>Federal adliye veri tabanı; Türkçe dil filtresi mevcuttur. Her tercümanın hangi eyalette yetkilendirildiği ve uzmanlık alanı belirtilir.</p>
 
       <h4>Ücret ve süre</h4>
-      <p><strong>Tercüme ücreti:</strong> Yaklaşık 1.85 €/satır + ek hizmet ücreti (JVEG tarifesine göre).<br/>
+      <p><strong>Tercüme ücreti:</strong> Yaklaşık 1,85 €/satır + ek hizmet ücreti (JVEG tarifesine göre).<br/>
       <strong>İşlem süresi:</strong> Birkaç gün.</p>
 
       <p><strong>Önemli uyarı:</strong> "Tercüme önce mi, apostil önce mi" sorusu kafa karıştırıcıdır. Genel kural: önce orijinal belgeye apostil, sonra tercüme. Ama bazı kurumlar farklı sıra ister — Türkiye'deki teslim alıcı kuruma teyit ettirin.</p>
