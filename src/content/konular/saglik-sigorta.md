@@ -83,7 +83,7 @@ ulkeler:
             ulke_kodu: "TR"
             vurgu: "yatay"
             toolboxAtfi: "/toolbox/hukuki-yardim#turkiye"
-            aciklama: "Sosyal güvenlik, sigorta ve tıp hukukunda deneyimli avukat aramak için TBB veya yaşadığınız ilin barosu. SGK reddi davaları İş Mahkemesi'nde görülür; sigorta uyuşmazlıkları Sigorta Tahkim Komisyonu veya Tüketici Mahkemesi'nde; tıbbi malpraktis davaları Asliye Hukuk Mahkemesi'nde. Maddi durum uygunsa Adli Yardım Bürosu'na başvuru. Genel avukat bulma rehberi Toolbox'ta."
+            aciklama: "Sosyal güvenlik, sigorta ve tıp hukukunda deneyimli avukat aramak için TBB veya yaşadığınız ilin barosu. SGK reddi davaları İş Mahkemesi'nde görülür; sigorta uyuşmazlıkları Sigorta Tahkim Komisyonu veya Tüketici Mahkemesi'nde; tıbbi malpraktis davaları Asliye Hukuk Mahkemesi'nde. Maddi durum uygunsa Adli Yardım Bürosu'na başvuru mümkündür. Genel avukat bulma rehberi Toolbox'ta."
 
       - numara: "03"
         baslik: "Sektörel ve sivil destek"
@@ -175,7 +175,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır. GKV reddine itiraz dilekçesi hazırlığı, PKV ödeme reddine ilk yanıt, MDK değerlendirme tartışması için kullanılır."
 
           - ikon: "scroll"
@@ -183,7 +183,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "GKV uyuşmazlıkları Sozialgericht (sosyal mahkeme), sigorta uyuşmazlıkları Landgericht'te görülür. Gelir koşulu sağlanıyorsa mahkeme harçları ve avukat ücretleri devlet eliyle karşılanır."
 
       - numara: "03"
@@ -214,7 +214,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'ya yeni yerleşmiş Türk göçmenler için sağlık sistemi (Krankenkasse seçimi, hekim bulma, Krankenversicherungspflicht süreci, çocuk için sağlık aşılaması) konusunda yön gösterir. Doğrudan sigorta veya tıbbi karar vermez; ilk başvuru noktasıdır. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
