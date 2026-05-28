@@ -80,7 +80,7 @@ ulkeler:
             tip: "Profesyonel"
             ulke_kodu: "TR"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
+            toolboxAtfi: "/toolbox/belge-evrak#noter-turkiye"
             aciklama: "Suç boyutuna ulaşmamış ama maddi zarar veren olaylarda (örneğin hizmet bedeli iadesi reddi, sözleşme ihlali, tahliye uyuşmazlığı) dava öncesi resmi uyarı için noter ihtarnamesi gönderilir. Ceza süreciyle paralel tazminat takibinde standart adım. Yurt dışındayken Türk konsolosluğu da ihtarname düzenleyebilir. Genel noter ve belge işlemleri rehberi Toolbox'ta."
 
       - numara: "03"
@@ -165,7 +165,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir — başvuru sırasında ilgili Amtsgericht'ten teyit edin) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır, istediğiniz avukata gidersiniz. Strafanzeige sonrası dilekçe hazırlığı, hakların değerlendirilmesi, Nebenklage uygunluk değerlendirmesi için kullanılır."
 
           - ikon: "scroll"
@@ -173,7 +173,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Dava açılmışsa veya açılacaksa mahkeme harçları ve avukat ücretini devlet karşılar. Gelir koşullu. Ceza davasında mağdur olarak Nebenklage'a iştirak ediyorsanız PKH'nin kapsadığı süreçlerden biri; ayrı Adhäsionsverfahren veya Zivilklage için de uygulanır."
 
       - numara: "03"
@@ -195,7 +195,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'ya yerleşmiş göçmenler için ücretsiz genel danışmanlık (Caritas, AWO, Diakonisches Werk eliyle yürür). Suç mağduru olduğunuzda doğrudan kapsam dışında olsa da MBE size uygun uzman kuruma (Weisser Ring, Frauenberatungsstelle, Beratungshilfe başvurusu) yönlendirme yapar — özellikle Almanca yetersiz veya Almanya sistemine yabancı kişiler için pratik başlangıç noktası."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
