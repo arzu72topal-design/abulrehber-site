@@ -34,7 +34,7 @@ ulkeler:
             ulke_kodu: "TR"
             paralel: true
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
+            toolboxAtfi: "/toolbox/belge-evrak#vekaletname-turkiye"
             aciklama: "Yurt dışındaki Türk vatandaşlarının sosyal güvenlik ve çalışma hayatı işlemlerinde konsoloslukların Çalışma ve Sosyal Güvenlik Müşavirliği / Ataşeliği birimleri devreye girer (Berlin, Hamburg, Münih, Düsseldorf, Frankfurt vb.). Hizmet belgesi düzenleme, SGK'ya iletilecek belgelerin onaylanması, DRV belgelerinin akredite tercümesi, yurt dışı borçlanma vekaletnamesi. Çalışma konusunda konsolosluk dikey karar makamı değil, SGK yurt dışı borçlanma + hizmet birleştirme dosyalarında belge tasdik köprüsüdür."
           - ikon: "stamp"
             baslik: "Apostil makamları — Türkiye"
@@ -42,7 +42,7 @@ ulkeler:
             ulke_kodu: "TR"
             paralel: true
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
+            toolboxAtfi: "/toolbox/belge-evrak#apostil-turkiye"
             aciklama: "SGK'dan alınan hizmet dökümü, emeklilik onay belgesi, prim ödeme belgeleri yurt dışında DRV veya başka kurumun talep ettiği durumda Valilik apostiliyle çıkarılır."
 
       - numara: "02"
@@ -55,15 +55,15 @@ ulkeler:
             tip: "Profesyonel"
             ulke_kodu: "TR"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#avukat-bulma-turkiye"
-            aciklama: "İş hukuku ve sosyal güvenlik alanında deneyimli avukat aramak için TBB veya yaşadığınız ilin barosu. Yurt dışından 'emekli aylığını yüksek bağlatırım' diyen kişiler için baroya sicil sorgusu temel koruma — aylığın miktarı kanunla belirli, 'yüksek bağlatma' yasal değildir. Maddi durum uygunsa Adli Yardım Bürosu."
+            toolboxAtfi: "/toolbox/hukuki-yardim#turkiye"
+            aciklama: "İş hukuku ve sosyal güvenlik alanında deneyimli avukat aramak için TBB veya yaşadığınız ilin barosu. Yurt dışından 'emekli aylığını yüksek bağlatırım' diyen kişiler için baroya sicil sorgusu temel koruma — aylığın miktarı kanunla belirli, 'yüksek bağlatma' yasal değildir. Maddi durum uygunsa Adli Yardım Bürosu üzerinden ücretsiz avukat tahsisi mümkündür."
           - ikon: "file-signature"
             baslik: "Türk noteri — vekaletname"
             tip: "Profesyonel"
             ulke_kodu: "TR"
             paralel: true
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#turkiye"
+            toolboxAtfi: "/toolbox/belge-evrak#noter-turkiye"
             aciklama: "Almanya'dayken Türkiye'deki SGK ile yurt dışı borçlanma dosyasını veya emekli aylığı başvurusunu avukat aracılığıyla takip için apostilli vekaletname. Konsolosluk Çalışma Müşavirliği aynı işlevi yapabilir."
 
       - numara: "03"
@@ -103,7 +103,7 @@ ulkeler:
             ulke_kodu: "DE"
             paralel: true
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/belge-evrak#almanya"
+            toolboxAtfi: "/toolbox/belge-evrak#apostil-almanya"
             aciklama: "DRV'den alınan Versicherungsverlauf, emeklilik kararı, iş kazası belgesi Türkiye'de kullanılacaksa Regierungspräsidium veya eyalet adalet bakanlığı apostiliyle çıkarılır. Eyalete göre değişir."
 
       - numara: "02"
@@ -116,7 +116,7 @@ ulkeler:
             tip: "Profesyonel"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#avukat-bulma-almanya"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Her eyaletin baro odası avukat arama hizmeti sunar (Anwaltssuche). Fachanwalt für Arbeitsrecht işten çıkarma davalarında, Fachanwalt für Sozialrecht DRV ve sosyal yardım uyuşmazlıklarında uzman. Türkçe konuşan avukatlar büyük şehirlerde."
           - ikon: "hand-coins"
             baslik: "Prozesskostenhilfe (PKH)"
@@ -183,10 +183,10 @@ ulkeler:
 
 ilgili_konular:
   - ikon: "id-card"
-    baslik: "Oturma ve vize"
+    baslik: "Vize ve oturum"
     vurgu: "Çalışma izni ve OKK 1/80"
     aciklama: "Almanya'da Türk işçinin oturma hakkı OKK 1/80 Madde 6 (1, 3, 4 yıl bağlama süreleri) çerçevesinde işler. Madde 7 aile fertlerinin çalışma hakkını düzenler."
-    link: "/konular/oturma-vize"
+    link: "/konular/vize-oturum"
   - ikon: "receipt"
     baslik: "Vergi"
     vurgu: "Çift vergilendirme ve emekli aylığı"
