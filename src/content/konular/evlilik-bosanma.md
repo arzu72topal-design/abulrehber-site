@@ -182,7 +182,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir — başvuru sırasında ilgili Amtsgericht'ten teyit edin) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır. Boşanma davası açılmadan önce Trennungsjahr, hukuk seçimi (Roma III), mal rejimi değerlendirmesi, NHK m. 27/A idari tanıma stratejisi için kullanılır."
 
           - ikon: "scroll"
@@ -190,7 +190,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Aile davalarında dava masraf yardımı Verfahrenskostenhilfe (VKH) adıyla anılır — diğer davalardaki PKH'nin aile davalarındaki muadili. Gelir koşullu. Boşanma, velayet, nafaka, mal rejimi davalarında mahkeme harçları ve avukat ücretleri devlet eliyle karşılanır. Versorgungsausgleich gibi karmaşık alt davalarda da geçerli."
 
       - numara: "03"
@@ -212,7 +212,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'da yerleşmiş yetişkin göçmenler için ücretsiz danışmanlık; boşanma öncesi süreçte hangi kurum, hangi avukat, hangi kanal sorularına yön gösterir. Aile davasında doğrudan müdahale etmez ama Fachanwalt için Anwaltauskunft'a, mağduriyet için Frauenhaus veya Weisser Ring'e sevk eder. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
