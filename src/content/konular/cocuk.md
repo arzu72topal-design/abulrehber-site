@@ -211,7 +211,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır. Jugendamt ile ilk temas, Sorgeerklärung süreci, Familiengericht'e velayet başvurusu, Lahey 1980 başvuru stratejisi için kullanılır."
 
           - ikon: "scroll"
@@ -219,7 +219,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Aile davalarında dava masraf yardımı Verfahrenskostenhilfe (VKH) adıyla anılır — diğer davalardaki PKH'nin aile davalarındaki muadili. Gelir koşullu. Velayet, nafaka, Lahey iade davalarında mahkeme harçları ve avukat ücretleri devlet eliyle karşılanır. Lahey 1980 iade davasında başvuran BfJ tarafından temsil edildiğinde VKH başvuran tarafının ek avukat tutma masraflarını da kapsayabilir."
 
       - numara: "03"
@@ -232,7 +232,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'ya yerleşmiş yetişkin göçmenler için ücretsiz danışmanlık; çocukla ilgili süreçlerde Jugendamt teması, okul iletişimi, sağlık sistemine yönlendirme için ilk başvuru noktası. Aile davasında doğrudan müdahale etmez ama Fachanwalt için Anwaltauskunft'a, çocuk koruma uzmanlığında Kinderschutzbund'a, mağduriyet için Frauenhaus veya Weisser Ring'e sevk eder. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
