@@ -150,7 +150,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir — başvuru sırasında ilgili Amtsgericht'ten teyit edin) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır, istediğiniz avukata gidersiniz. Miras açıldığında dava açılmadan önce Erbschein başvurusu, mirasın reddi (Ausschlagung) süreleri, vasiyetname yorumu, paydaş arası uzlaşma gibi konularda hızlı kanaldır. Mirasın reddi süresi kısıtlı (6 hafta / yurt dışında 6 ay) — beklenmemelidir."
 
           - ikon: "scroll"
@@ -158,7 +158,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Miras taksim davası, vasiyetnamenin geçerliliği davası, Pflichtteilsanspruch (saklı pay) davası gibi miras davaları mahkemeye taşındığında ve gelir koşulu sağlanıyorsa mahkeme harçları ve avukat ücretlerini devlet karşılar. Aile davaları kapsamına giren bazı miras vakalarında Verfahrenskostenhilfe (VKH) muadildir."
 
       - numara: "03"
@@ -171,7 +171,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'ya yerleşmiş göçmenler için ücretsiz genel danışmanlık (Caritas, AWO, Diakonisches Werk, Paritätischer, DRK, ZWST eliyle yürür). Miras süreçlerinde doğrudan dava takibi yapmaz, ancak ölüm sonrası belge yığınının (Sterbeurkunde, Aufenthalt iptali, sosyal sigorta bildirimi, Krankenkasse iptali) toplanması ve hangi avukata sevk edileceği konusunda yön gösterir. Türkçe konuşan danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
