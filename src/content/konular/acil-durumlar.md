@@ -168,7 +168,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır. Strafanzeige hazırlığı, suç duyurusuna ilk yanıt, hafif suç için danışmanlık, mağdur sıfatıyla ceza sürecine müşteki olarak katılma stratejisi. Acil değil ama 1-2 günlük danışmanlık ihtiyaçları için pratiktir."
 
           - ikon: "scroll"
@@ -176,7 +176,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Mağdur sıfatıyla ceza davasına katılma (Nebenklage) veya Adhäsionsverfahren (ceza davasında tazminat talebi), aile içi şiddet kararı gibi sivil davalarda gelir koşulu uygun ise PKH/VKH. Acil durumun sonrasında işleyen kanaldır — anında değil."
 
       - numara: "03"
@@ -207,7 +207,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Acil durumun göçmen boyutu (örnek: oturma izninin tehlikeye girmesi, Aufenthaltstitel iptali, sınır dışı tebligatı) için ücretsiz danışmanlık. Doğrudan acil müdahale yapmaz ama doğru kanala sevk eder — Strafanzeige için Polizei, koruma emri için Familiengericht, ceza müdafii için Anwaltauskunft. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
