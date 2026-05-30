@@ -172,7 +172,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır. Approbationsbehörde reddine itiraz dilekçesi hazırlığı, BQFG uygulaması yorumu için kullanılır."
 
           - ikon: "scroll"
@@ -180,7 +180,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düzenlenmiş meslek tanıma reddine karşı Verwaltungsgericht iptal davasında — gelir koşulu sağlanıyorsa mahkeme harçları ve avukat ücretleri devlet eliyle karşılanır."
 
       - numara: "03"
@@ -193,7 +193,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'da yerleşmiş yetişkin göçmenler için ücretsiz danışmanlık; diploma tanıma sürecinde hangi kuruma başvurulacağı, hangi belgelerin gerekli olduğu, IQ Netzwerk tanıma danışmanlığı noktalarına yönlendirme. Doğrudan tanıma değerlendirmesi yapmaz; ilk başvuru noktasıdır. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
