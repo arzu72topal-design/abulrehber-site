@@ -193,7 +193,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır. Banka kredi sözleşme yorumu, Schufa düzeltme başvurusu, Ombudsmann öncesi strateji değerlendirmesi için."
 
           - ikon: "scroll"
@@ -201,7 +201,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Banka veya finansal kuruluşa karşı Amtsgericht veya Landgericht'te dava açtığınızda — gelir koşulu sağlanıyorsa mahkeme harçları ve avukat ücretleri devlet eliyle karşılanır."
 
       - numara: "03"
@@ -232,7 +232,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'ya yeni yerleşmiş Türk göçmenler için banka hesabı açma (Girokonto, Anmeldung sonrası ilk adımlardan), Schufa sistemi oryantasyonu, ilk kredi kartı kararı, BAföG ve kredi yapısı konusunda yön gösterir. Doğrudan finansal karar vermez veya banka uyuşmazlığı çözmez; Verbraucherzentrale veya avukata sevk eder. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
