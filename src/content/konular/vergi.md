@@ -177,7 +177,7 @@ ulkeler:
             tip: "STK"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-mbe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Almanya'ya yeni yerleşmiş Türk göçmenler için vergi sistemi (Steuer-ID alma, Anmeldung sonrası ilk yükümlülükler, Lohnsteuer mantığı, Steuerklasse seçimi) konusunda yön gösterir. Beyan hazırlığı yapmaz — Steuerberater veya Lohnsteuerhilfeverein'e sevk eder. Türkçe danışman çoğu büyük şehirde mevcut."
             not: "Ana ev: Vize ve oturum sayfası — göç danışmanlığı çerçevesinde tam içerik orada."
 
