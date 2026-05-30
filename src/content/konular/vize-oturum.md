@@ -154,7 +154,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-beratungshilfe"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Düşük gelirliler için sembolik ücretle (yıllık güncellenir — başvuru sırasında ilgili Amtsgericht'ten teyit edin) avukatlık danışmanlığı. Amtsgericht'ten Beratungshilfeschein alınır, istediğiniz avukata gidersiniz. Ausländerbehörde'den ret kararı geldiğinde Widerspruch (itiraz dilekçesi) hazırlığı, sınır dışı tebligatına ilk yanıt, izin türü değişikliği için strateji değerlendirmesi. Acil tebligatlar (sınır dışı) için hızlı kanaldır."
 
           - ikon: "scroll"
@@ -162,7 +162,7 @@ ulkeler:
             tip: "Ücretsiz"
             ulke_kodu: "DE"
             vurgu: "yatay"
-            toolboxAtfi: "/toolbox/hukuki-yardim#almanya-pkh"
+            toolboxAtfi: "/toolbox/hukuki-yardim#almanya"
             aciklama: "Reddedilen oturum izni veya sınır dışı kararına karşı Verwaltungsgericht (idare mahkemesi) iptal davası — gelir koşulu sağlanıyorsa mahkeme harçları ve avukat ücretleri devlet tarafından karşılanır. Untätigkeitsklage (eylemsizlik davası) için de PKH uygulanır. Sınır dışı kararlarına karşı acil hukuki koruma (Eilrechtsschutz veya einstweilige Anordnung) talebi PKH ile birlikte verilir."
 
       - numara: "03"
